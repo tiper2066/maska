@@ -23,7 +23,7 @@ export default function Contact() {
                     mb={6}
                     fontSize={30}
                     fontWeight={600}
-                    fontFamily={'Pretendard'}
+                    fontFamily='var(--ff-style)'
                     className='form_title'
                 >
                     문의하기

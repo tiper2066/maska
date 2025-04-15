@@ -17,7 +17,7 @@ export default function LoginPage() {
                     mb={6}
                     fontSize={30}
                     fontWeight={600}
-                    fontFamily={'Pretendard'}
+                    fontFamily='var(--ff-style)'
                     className='form_title'
                 >
                     로그인
