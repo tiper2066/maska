@@ -15,6 +15,7 @@ import {
     PopoverContent,
     PopoverBody,
     Link,
+    Tooltip,
     useDisclosure,
 } from '@chakra-ui/react';
 import Image from 'next/image';
@@ -475,7 +476,10 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                             <HStack
                                 mt={2}
                                 spacing={3}
-                                style={{ position: 'relative', width: '100%' }}
+                                style={{
+                                    position: 'relative',
+                                    width: '100%',
+                                }}
                             >
                                 <VStack
                                     style={{

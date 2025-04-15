@@ -171,6 +171,7 @@ const PreviewMemberVideo = () => {
                             className='btn_round btn_outline btn_lg full_width'
                             onClick={(e) => {
                                 e.preventDefault();
+                                router.push('/edit-member-img');
                             }}
                         >
                             마스카 영역 편집하기
