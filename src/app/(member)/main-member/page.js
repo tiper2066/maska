@@ -1,6 +1,8 @@
 'use client';
 import FileUploadMemberComponent from '@/components/common/FileUploadMemberComponent';
 import MemberPageHeaderComponent from '@/components/common/MemberPageHeaderComponent';
+import QuickTaskPanelComponent from '@/components/common/QuickTaskPanelComponent';
+import Link from 'next/link';
 
 const MainMember = () => {
     const pageHeaderProps = {
@@ -13,7 +15,7 @@ const MainMember = () => {
     return (
         <div className='member_layout'>
             <div className='left'>
-                <p className='menu'>Quick 작업</p>
+                <QuickTaskPanelComponent />
             </div>
             <div className='center'>
                 <MemberPageHeaderComponent {...pageHeaderProps} />

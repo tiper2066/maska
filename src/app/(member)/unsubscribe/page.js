@@ -2,6 +2,7 @@ import { Box, Center } from '@chakra-ui/react';
 import Link from 'next/link';
 import MemberPageHeaderComponent from '@/components/common/MemberPageHeaderComponent';
 import UnSubscribeForm from './UnSubscribeForm';
+import QuickTaskPanelComponent from '@/components/common/QuickTaskPanelComponent';
 const MemberInfo = () => {
     const pageHeaderProps = {
         isPagePath: true,
@@ -10,24 +11,24 @@ const MemberInfo = () => {
         pagePathName: '회원 탈퇴하기',
     };
     return (
-        <div className="member_layout">
-            <div className="left">
-                <p className="menu">Quick 작업</p>
+        <div className='member_layout'>
+            <div className='left'>
+                <QuickTaskPanelComponent />
             </div>
-            <div className="center" position="relative">
+            <div className='center' position='relative'>
                 {/* -------- 헤더 -------- */}
                 <MemberPageHeaderComponent {...pageHeaderProps} />
                 {/* -------- 회원 탈퇴하기 폼 -------- */}
                 <Center
-                    bg="var(--clr-light-blue)"
-                    flexDirection="column"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    height="calc(100vh - 12.5rem)"
+                    bg='var(--clr-light-blue)'
+                    flexDirection='column'
+                    justifyContent='flex-start'
+                    alignItems='center'
+                    height='calc(100vh - 12.5rem)'
                 >
-                    <Box w="100%" maxW="550px" p={8}>
+                    <Box w='100%' maxW='550px' p={8}>
                         <div
-                            className="page_contents sec_main member"
+                            className='page_contents sec_main member'
                             style={{
                                 maxWidth: '75rem',
                                 margin: ' 3.125rem auto',

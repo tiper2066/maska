@@ -4,6 +4,7 @@ import FooterSimple from '@/components/common/FooterSimple';
 import Image from 'next/image';
 import Link from 'next/link';
 import ThumbNail from '@/components/edit-img/ThumbNailComponent';
+import QuickTaskPanelComponent from '@/components/common/QuickTaskPanelComponent';
 const EditMemberImage = () => {
     /* 헤더로 전달하는 옵션 */
     const pageHeaderProps = {
@@ -17,7 +18,7 @@ const EditMemberImage = () => {
         <div className='member_layout'>
             {/* --------------- 좌측 패널 --------------- */}
             <div className='left'>
-                <p className='menu'>Quick 작업</p>
+                <QuickTaskPanelComponent />
             </div>
             {/* --------------- 컨텐츠  --------------- */}
             <div className='center'>

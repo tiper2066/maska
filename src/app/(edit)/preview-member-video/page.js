@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
+import QuickTaskPanelComponent from '@/components/common/QuickTaskPanelComponent';
 
 const PreviewMemberVideo = () => {
     const router = useRouter(); // 라우터 객체 생성
@@ -48,7 +49,7 @@ const PreviewMemberVideo = () => {
         <div className='member_layout'>
             {/* --------------- 좌측 패널 --------------- */}
             <div className='left'>
-                <p className='menu'>Quick 작업</p>
+                <QuickTaskPanelComponent />
             </div>
             {/* --------------- 컨텐츠  --------------- */}
             <div className='center'>

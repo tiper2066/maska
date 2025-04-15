@@ -2,6 +2,7 @@ import { Box, Center } from '@chakra-ui/react';
 import Link from 'next/link';
 import MemberPageHeaderComponent from '@/components/common/MemberPageHeaderComponent';
 import MemberInforForm from './MemberInfoForm';
+import QuickTaskPanelComponent from '@/components/common/QuickTaskPanelComponent';
 const MemberInfo = () => {
     const pageHeaderProps = {
         isPagePath: false,
@@ -12,7 +13,7 @@ const MemberInfo = () => {
     return (
         <div className='member_layout'>
             <div className='left'>
-                <p className='menu'>Quick 작업</p>
+                <QuickTaskPanelComponent />
             </div>
             <div className='center' position='relative'>
                 {/* -------- 헤더 -------- */}

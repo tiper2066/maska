@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
+import QuickTaskPanelComponent from '@/components/common/QuickTaskPanelComponent';
 
 const PreviewMemberImage = () => {
     const router = useRouter(); // 라우터 객체 생성
@@ -45,16 +46,16 @@ const PreviewMemberImage = () => {
     };
 
     return (
-        <div className="member_layout">
+        <div className='member_layout'>
             {/* --------------- 좌측 패널 --------------- */}
-            <div className="left">
-                <p className="menu">Quick 작업</p>
+            <div className='left'>
+                <QuickTaskPanelComponent />
             </div>
             {/* --------------- 컨텐츠  --------------- */}
-            <div className="center">
+            <div className='center'>
                 <MemberPageHeaderComponent {...pageHeaderProps} />
                 <div
-                    className="page_contents sec_main member"
+                    className='page_contents sec_main member'
                     style={{
                         maxWidth: '75rem',
                         margin: ' 3.125rem auto',
@@ -68,8 +69,8 @@ const PreviewMemberImage = () => {
                         }}
                     >
                         <Image
-                            src="/img/screen_img.svg"
-                            alt="preview video screen"
+                            src='/img/screen_img.svg'
+                            alt='preview video screen'
                             fill={true}
                             style={{
                                 objectFit: 'contain',
@@ -81,11 +82,11 @@ const PreviewMemberImage = () => {
                 <FooterSimple />
             </div>
             {/* --------------- 우측 패널  --------------- */}
-            <div className="right">
-                <div className="right-container ">
+            <div className='right'>
+                <div className='right-container '>
                     {/* ---------- 텍스트 정보 -------- */}
                     <div
-                        className="flex_vertical"
+                        className='flex_vertical'
                         style={{
                             width: '100%',
                             justifyContent: 'flex-start',
@@ -94,18 +95,18 @@ const PreviewMemberImage = () => {
                         }}
                     >
                         {/* X 닫기 버튼 */}
-                        <div className="btn_close_panel">
+                        <div className='btn_close_panel'>
                             <Link
-                                href=""
+                                href=''
                                 onClick={(e) => {
                                     e.preventDefault();
                                     handleModalOpen('XBtnModal');
                                 }}
                             >
                                 <Image
-                                    className="icon_cancel_x"
-                                    src="/img/icon_cancel_x.svg"
-                                    alt="cancel x icon"
+                                    className='icon_cancel_x'
+                                    src='/img/icon_cancel_x.svg'
+                                    alt='cancel x icon'
                                     width={24}
                                     height={24}
                                 />
@@ -113,61 +114,61 @@ const PreviewMemberImage = () => {
                         </div>
                         {/* 다운로드 가능 건수 */}
                         <div
-                            className="flex_vertical"
+                            className='flex_vertical'
                             style={{
                                 justifyContent: 'flex-start',
                                 alignItems: 'flex-start',
                                 gap: '1rem',
                             }}
                         >
-                            <p className="item_name">다운로드 가능 건수</p>
-                            <p className="item_value">19/20건 가능</p>
+                            <p className='item_name'>다운로드 가능 건수</p>
+                            <p className='item_value'>19/20건 가능</p>
                         </div>
                         {/* ----- 구분선 ------ */}
                         <Divider
-                            borderStyle="solid"
-                            borderColor="var(--clr-label-blue)"
+                            borderStyle='solid'
+                            borderColor='var(--clr-label-blue)'
                             my={2}
                         />
                         {/* 파일 정보 */}
                         <div
-                            className="flex_vertical"
+                            className='flex_vertical'
                             style={{
                                 justifyContent: 'flex-start',
                                 alignItems: 'flex-start',
                                 gap: '1rem',
                             }}
                         >
-                            <p className="item_name">파일 정보</p>
-                            <p className="item_value">
+                            <p className='item_name'>파일 정보</p>
+                            <p className='item_value'>
                                 Photo_name.png {/* 마스카 진행 상태 뱃지  */}
                                 <Text
-                                    as="span"
-                                    color="var(--clr-white)"
-                                    bgColor="var(--clr-primary)"
-                                    className="maska_status_badge"
+                                    as='span'
+                                    color='var(--clr-white)'
+                                    bgColor='var(--clr-primary)'
+                                    className='maska_status_badge'
                                     mx={2}
                                 >
                                     마스카 완료
                                 </Text>
                             </p>
-                            <p className="file_info">
+                            <p className='file_info'>
                                 2GB <br />
                                 1920x1080
                             </p>
                         </div>
                         {/* 태그 뱃지 */}
-                        <div className="tags" style={{ marginTop: '1rem' }}>
+                        <div className='tags' style={{ marginTop: '1rem' }}>
                             <span>#얼굴인식</span>
                         </div>
                     </div>
                     <div
-                        className="flex_vertical full_width"
+                        className='flex_vertical full_width'
                         style={{ gap: '1rem', marginTop: '3.75rem' }}
                     >
                         <Link
-                            href=""
-                            className="btn_round btn_outline btn_lg full_width"
+                            href=''
+                            className='btn_round btn_outline btn_lg full_width'
                             onClick={(e) => {
                                 e.preventDefault();
                                 router.push('/edit-member-img');
@@ -176,8 +177,8 @@ const PreviewMemberImage = () => {
                             마스카 영역 편집하기
                         </Link>
                         <Link
-                            href=""
-                            className="btn_round btn_lg full_width"
+                            href=''
+                            className='btn_round btn_lg full_width'
                             onClick={(e) => {
                                 e.preventDefault();
                             }}
@@ -194,8 +195,8 @@ const PreviewMemberImage = () => {
                             제공하므로, 신중히 다운로드하시기 바랍니다.
                         </p>
                         <Link
-                            href=""
-                            className="btn_round btn_lg btn_black full_width"
+                            href=''
+                            className='btn_round btn_lg btn_black full_width'
                             onClick={(e) => {
                                 e.preventDefault();
                             }}
