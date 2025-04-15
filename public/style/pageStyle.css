@@ -1,0 +1,635 @@
+/* ------------------------------------------------
+    Header.js
+------------------------------------------------ */
+.header {
+    width: 100%;
+    /* 상단 부착을 위한 설정 */
+    position: fixed;
+    border-bottom: 0.063rem solid var(--clr-primary);
+    background: var(--clr-white);
+    z-index: 999;
+}
+.header_wapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 75rem; /* 1200px */
+    height: var(--h-header);
+    /* padding: 0 1.875rem; 30px */
+    margin: 0 auto;
+    transition: all 0.3s;
+}
+/* 비회원 미리보기 페이지 헤더 */
+.header.user .header_wapper {
+    max-width: 100%;
+    padding: 0 1.875rem; /* 30px */
+}
+/* Cloudbric Maska 로고 */
+.header .maska_logo {
+    width: 17.5rem; /* 280px */
+    transition: all 0.3s;
+    height: auto; /* Image 콤포넌트를 위해 auto */
+}
+/* ------------------------------------------------
+    Home - page.js
+------------------------------------------------ */
+.section_home {
+    padding: 5rem 0; /* 80px 0 */
+}
+/* 각 섹션의 최대 너비 */
+.section_home > div {
+    margin: 0 auto;
+    max-width: 75rem; /* 1200px */
+}
+/* ---------- 각각의 섹션에 대한 높이 설정 --------- */
+.section_home:has(.sec_main) {
+    /* height: 54.375rem; 870px */
+    height: auto; /* 870px */
+    padding: 5rem 0 2.5rem; /* 80px 0 40 0 */
+}
+.section_home:has(.what_maska) {
+    height: 56.25rem; /* 900px */
+}
+.section_home:has(.lets_maska) {
+    height: 71.875rem; /*  1150px */
+}
+.section_home:has(.how_maska) {
+    height: 50rem; /* 800px */
+}
+.section_home:has(.usecase_maska) {
+    height: 53.125rem; /* 850px */
+}
+.section_home:has(.why_maska) {
+    height: 53.125rem; /* 850px */
+    background-color: var(--clr-light-blue);
+}
+/* Let's Maska 영역의 절반만 색포함된 배경색  */
+.section_home:has(.lets_maska) {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 1) 36%,
+        rgba(251, 252, 255, 1) 36.1%,
+        rgba(251, 252, 255, 1) 100%
+    );
+}
+/* ------------------------------------------------
+    Home - Section Main (파일 올리기 영역)
+------------------------------------------------ */
+.sec_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.875rem; /* 30px */
+}
+.sec_main .title {
+    font-size: var(--fs-48);
+    font-weight: var(--fw-200);
+    line-height: 1.2;
+    text-align: center;
+    padding-top: 5rem; /* 80px */
+    padding-bottom: 0.938rem; /* 15px */
+}
+.sec_main .text_blur {
+    color: var(--clr-sky-blue);
+    font-weight: var(--fw-700);
+}
+.sec_main .text_maska {
+    color: var(--clr-primary);
+    font-weight: var(--fw-700);
+}
+.sec_main .file_upload_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: cetner;
+    text-align: center;
+    width: 100%;
+    height: 21.25rem; /* 340px */
+    padding: 3.125rem 1.25rem 1.25rem 1.25rem; /* 50px 20px 20px 20px */
+    border: 0.063rem dashed var(--clr-primary);
+    border-radius: 1.875rem; /* 30px */
+    background-color: var(--clr-white);
+}
+/* 회원 관련 업로드 영역 - 배경 변경 */
+.sec_main.member .file_upload_container {
+    background-color: var(--clr-white) !important;
+}
+
+/* 업로드 영역의 이미지 클립 아이콘 */
+.file_upload_container .icon_pic {
+    width: 5.688rem; /*  91px */
+    height: 4.063rem; /* 65px */
+}
+
+/* 남은 횟수 뱃지 */
+.badge_chance {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 1.875rem; /* 30px */
+    right: 1.875rem; /* 30px */
+    font-size: var(--fs-16);
+    font-weight: var(--fw-500);
+    padding: 0.25rem 0.938rem; /* 4px 15px */
+    border-radius: 3.125rem; /* 50px */
+    color: var(--clr-primary);
+    border: 0.063rem solid var(--clr-primary);
+    transition: all 0.3s;
+}
+/* 또는 ~ 드래그 */
+.sec_main .sub_desc {
+    font-size: var(--fs-20);
+    font-weight: var(--fw-200);
+}
+.sec_main .sub_desc span {
+    font-weight: var(--fw-500);
+}
+/* 업로드 가능 형식 */
+.sec_main .type span {
+    font-weight: var(--fw-500);
+    padding-left: 0.5rem;
+}
+.sec_main .features {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.938rem; /* 15px */
+    font-size: var(--fs-20);
+    font-weight: var(--fw-500);
+    padding-bottom: 0.938rem; /* 15px */
+}
+.sec_main .features span {
+    font-weight: var(--fw-900);
+}
+/* ------------------------------------------------
+    Home - Section Contents & Image
+------------------------------------------------ */
+/* ---------- 좌측 텍스트 요소 별 스타일 --------- */
+.sec_contents .title {
+    font-size: var(--fs-20);
+    font-weight: var(--fw-600);
+    text-transform: uppercase;
+    color: var(--clr-sky-blue);
+    margin-bottom: 2.5rem; /* 40px */
+}
+.sec_contents .headline {
+    font-size: var(--fs-42);
+    font-weight: var(--fw-200);
+    line-height: 1.2;
+    margin-bottom: 1.25rem; /* 20px */
+}
+/* 강조 단어  */
+.sec_contents .headline span {
+    font-weight: var(--fw-700);
+    color: var(--clr-primary);
+}
+.sec_contents .description {
+    font-size: var(--fs-20);
+    font-weight: var(--fw-400);
+    line-height: 1.2;
+    margin-bottom: 1.875rem; /* 30px */
+}
+/* 설명 문구 내부에 강조되는 글자 스타일 (펜타시큐리티) */
+.sec_contents .description strong {
+    font-weight: var(--fw-600);
+    color: var(--clr-primary);
+}
+/* --- 뱃지 태그 - 메인 페이지용 */
+.sec_contents .tags {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1.875rem; /* 30px */
+    gap: 1.25rem; /* 20px */
+}
+.sec_contents .tags span {
+    display: inline_block;
+    font-size: var(--fs-16);
+    font-weight: var(--fw-500);
+    border-radius: 1.25rem; /* 20px */
+    color: var(--clr-primary) !important;
+    background-color: var(--clr-label-blue);
+    padding: 0.5rem 1.125rem; /* 8px 18px */
+}
+.sec_contents .rules {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.313rem; /* 5px */
+}
+.sec_contents .rules p {
+    font-size: var(--fs-18);
+    font-weight: var(--fw-400);
+}
+/* ---------- 섹션 배경 이미지 --------- */
+/* What Maska */
+.sec_contents.what_maska .bg_img {
+    position: absolute;
+    top: 4.375rem; /* 70px */
+    left: 0;
+    z-index: -1;
+}
+.sec_contents.what_maska .bg_img img {
+    width: 75rem; /* 1200px */
+    height: auto;
+}
+/* Let's Maska 이미지 컨테이너 */
+.sec_contents.lets_maska .bg_img {
+    position: absolute;
+    top: 17.5rem; /*  280px */
+    left: 0;
+    z-index: 1;
+    width: 81.25rem; /* 1300px */
+    height: auto;
+}
+/* Let's Maska 메인 배경 이미지 */
+.sec_contents.lets_maska .bg_img img {
+    width: 81.25rem; /* 1300px */
+    height: auto;
+}
+/* 구름 하나 */
+.sec_contents.lets_maska .reveal_let_maska_bg1 {
+    position: absolute;
+    top: 16rem; /* 256px */
+    right: 13.5rem; /* 216px */
+    width: 7.813rem; /* 125px */
+    height: auto;
+    z-index: 3;
+}
+/* How Maska */
+.sec_contents.how_maska .bg_img {
+    position: absolute;
+    top: 4.375rem; /* 70px */
+    left: 10rem; /* 160px */
+    width: 71.875rem; /* 1150px */
+    z-index: -1;
+}
+.sec_contents.how_maska .bg_img img {
+    width: 71.875rem; /* 1150px */
+    height: auto;
+}
+/* Use Case Maska */
+.sec_contents.usecase_maska .bg_img {
+    position: absolute;
+    top: 9.375rem; /* 150px */
+    left: 15rem; /* 240px */
+    z-index: -1;
+}
+.sec_contents.usecase_maska .bg_img img {
+    width: 60.25rem; /* 964px */
+    height: auto;
+}
+/* ------------------------------------------------
+    Home - Let Maska - Price Table
+------------------------------------------------ */
+.price_table {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 12.5rem; /* 200px */
+    left: 10.625rem; /* 170px */
+    width: 45.625rem; /* 730px */
+    height: 50rem; /* 800px */
+    text-align: center;
+    z-index: 2;
+}
+.price_table .price_title {
+    font-size: var(--fs-23);
+    font-weight: var(--fw-500);
+    color: var(--clr-primary);
+    padding: 1.25rem 0; /* 20px */
+}
+.price_table .list_box {
+    width: 20.313rem; /* 325px */
+    border-radius: 3.125rem; /* 50px */
+    background-color: var(--clr-white);
+    box-shadow: 0rem 0.625rem 1.875rem rgba(38, 57, 148, 0.1); /* 0 10px 30px  */
+    padding: 1.25rem; /* 20px */
+}
+.price_table .list_box li {
+    position: relative;
+    padding: 1.563rem; /* 25px */
+}
+/* 항목 아래 라인  */
+.price_table .list_box li::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+    height: 0.063rem; /*  1px */
+    width: 20%; /* 원하는 선 길이 */
+    background-color: var(--clr-label-blue);
+}
+/* 항목 아래 마지막 라인 제거   */
+.price_table .list_box li:last-child::after {
+    height: 0rem; /*  0px */
+}
+.price_table .item_name {
+    font-size: var(--fs-16);
+    color: var(--clr-gray);
+}
+.price_table .item_value {
+    font-size: var(--fs-23);
+    font-weight: var(--fw-500);
+}
+.price_table .item_value_blue {
+    font-size: var(--fs-23);
+    font-weight: var(--fw-700);
+    color: var(--clr-sky-blue);
+}
+/* ------------------------------------------------
+    Home - Why Maska - Diagram
+------------------------------------------------ */
+.diagram {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+.diagram p {
+    font-size: var(--fs-20);
+    font-weight: var(--fw-600);
+    margin-top: 1.25rem; /* 20px */
+    text-align: center;
+    line-height: 1.2;
+}
+.diagram .icon_arrow {
+    margin-bottom: 9.375rem; /* 150px */
+    width: 1.25rem; /* 20px */
+}
+.diagram .d_tag {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: var(--fs-14);
+    font-weight: var(--fw-500);
+    color: var(--clr-red);
+    background-color: var(--clr-light-red);
+    padding: 0.5rem 1.25rem; /* 8px 20px */
+    border-radius: 3.125rem; /* 50px */
+    position: absolute;
+    bottom: -4.063rem; /* -65px */
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/* 다이어그램 아이템의 상단 클립아트 사이즈 설정 */
+.diagram .d_item.step1 img {
+    width: 12.625rem; /* 202px */
+    height: auto;
+}
+.diagram .d_item.step2 img {
+    width: 11.25rem; /* 180px */
+    height: auto;
+}
+.diagram .d_item.step3 img {
+    width: 11.25rem; /* 180px */
+    height: auto;
+}
+.diagram .d_item.step4 img {
+    width: 12.188rem; /* 195px */
+    height: auto;
+}
+/* --------------------------------------------------
+     마스카 진행 상황 컴포넌트 
+-------------------------------------------------- */
+/* 마스카 진행 상황 타이틀 */
+.maska_status_title {
+    font-size: var(--fs-23);
+    font-weight: var(--fw-600);
+}
+/* 마스카 진행 상태 뱃지 */
+.maska_status_badge {
+    top: 0;
+    left: 0;
+    font-size: var(--fs-14);
+    font-weight: var(--fw-500);
+    padding: 0.25rem 0.938rem; /* 4px 15px */
+    border-radius: 6.25rem; /* 100px */
+    white-space: nowrap;
+}
+/* 마스카 대기 순서 뱃지 */
+.maska_wating_badge {
+    font-size: var(--fs-16);
+    font-weight: var(--fw-500);
+    color: var(--clr-primary);
+    background-color: var(--clr-yellow);
+    padding: 0.313rem 0.938rem; /* 5px 15px */
+    border-radius: 6.25rem; /* 100px */
+    gap: 0.625rem;
+}
+/* 아이콘 대기중 - 대기순서 뱃지 속 아이콘 */
+.icon_waiting {
+    width: 1.125rem; /* 18px */
+    height: 'auto';
+}
+/* 아이콘 X 이미지 */
+.icon_cancel_x {
+    display: inline-block;
+    width: 1.5rem; /* 24px */
+    height: 'auto';
+}
+/* 아이콘 완료 화살표 */
+.icon_arrow_complete {
+    display: inline-block;
+    width: 0.75rem; /* 12px */
+    height: 'auto';
+}
+/* 프로그레스바 진행율 퍼센트 텍스트 */
+.percentage {
+    font-size: var(--fs-18);
+    font-weight: var(--fw-600);
+}
+/* ------------------------------------------------
+    비회원/회원 미리보기 
+------------------------------------------------ */
+.preview-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+.preview-user .left-container {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    padding: 3.125rem; /* 50px */
+    width: calc(100% - var(--w-right-panel));
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.preview-user .right-container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 3.75rem; /* 60px */
+    width: var(--w-right-panel); /*  420px */
+    /* min-width: 21.875rem; 350px */
+    height: 100%;
+    /* 65px 30px 30px 30px */
+    padding: 4.063rem 1.875rem 1.875rem 1.875rem;
+    border-left: 0.063rem solid var(--clr-label-blue);
+    background-color: var(--clr-white);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.preview-user .item_name,
+.member_layout .right .item_name {
+    font-size: var(--fs-18);
+    font-weight: var(--fw-400);
+    color: var(--clr-sky-blue);
+}
+.preview-user .item_value,
+.member_layout .right .item_value {
+    font-size: var(--fs-20);
+    font-weight: var(--fw-600);
+}
+.preview-user .file_info,
+.member_layout .right .file_info {
+    font-size: var(--fs-18);
+    font-weight: var(--fw-400);
+}
+/* ------------------------------------------------
+    회원 컨텐츠 레이아웃 - 미리보기, 편집, 회원정보
+------------------------------------------------ */
+.member_layout {
+    display: flex;
+    judstify-content: space-between;
+    align-items: flex-start;
+    margin-top: var(--h-header);
+    height: calc(100vh - var(--h-header));
+    background-color: var(--clr-light-blue);
+}
+/* ----------- 좌측 패널 ----------- */
+.member_layout .left {
+    display: flex;
+    flex-direction: column;
+    judstify-content: flex-start;
+    align-items: flex-start;
+    padding: 3.75rem 1.875rem; /* 60px 30px */
+    min-width: 16.25rem; /* 260xp */
+    height: 100%;
+    border-right: 0.063rem solid var(--clr-label-blue);
+    background-color: var(--clr-white);
+}
+/* 좌측 패널 메뉴 */
+.member_layout .left .menu {
+    font-size: var(--fs-20);
+    font-weight: var(--fw-600);
+}
+/* ----------- 중앙 컨텐츠 ----------- */
+.member_layout .center {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    padding: 1.875rem; /* 30px */
+}
+/* 페이지 타이틀 */
+.member_layout .center .page_header_title {
+    font-size: var(--fs-23);
+    font-weight: var(--fw-600);
+    padding-bottom: 0.313rem; /* 5px */
+    border-bottom: 0.063px solid var(--clr-label-blue);
+    margin-bottom: 0.625rem; /* 10px */
+}
+/* 페이지 경로 링크 */
+.member_layout .center .page_path {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.625rem; /* 10px */
+    font-size: var(--fs-18);
+    font-weight: var(--fw-600);
+    color: var(--foreground);
+}
+/* ----------- 우측 패널 : 컨테이너 ----------- */
+.member_layout .right {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-star;
+    align-items: flex-start;
+    height: 100%;
+    max-width: var(--w-right-panel); /*  420px */
+    border-left: 0.063rem solid var(--clr-label-blue);
+    background-color: var(--clr-white);
+    /* gap: 3.75rem; 60px */
+    /* 65px 30px 30px 30px */
+    padding: 4.063rem 1.875rem 1.875rem 1.875rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* ------------------------------------------------
+    Footer
+------------------------------------------------ */
+.footer {
+    width: 100%;
+    background: var(--clr-primary-dark);
+}
+.footer_warpper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 75rem; /* 1200px */
+    height: var(--h-footer);
+    color: var(--clr-white);
+    font-size: var(--fs-18);
+    font-weight: var(--fw-400);
+    margin: 0 auto;
+    transition: all 0.3s;
+}
+.footer_warpper p {
+    line-height: 1.8;
+}
+.footer_warpper > div:last-child {
+    padding-top: 3.2rem;
+}
+.footer .penta_name {
+    font-weight: var(--fw-700);
+}
+/* ----- Simple Footer : 비회원 미리보기: 좌측 패널제외하고 우측으로 배치 ----- */
+.footer.simple {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 0.063rem solid var(--clr-label-blue);
+    background: var(--clr-white);
+}
+.footer_warpper.simple {
+    color: var(--clr-primary);
+    height: var(--h-footer-simple);
+    max-width: 100%;
+    padding: 0 1.875rem; /* 30px */
+}
+/* 카피라이트 - 비회원 미리보기 */
+.footer_warpper.simple > div:nth-child(1) {
+    font-size: var(--fs-14);
+    font-webkit: var(--fw-400);
+}
+.footer_warpper.simple > div:last-child {
+    padding-top: 0;
+    font-size: var(--fs-14);
+    font-webkit: var(--fw-500);
+}
+/* 좌측 패널 제외하고 - 우측으로 배치되는 푸터 레이아웃 */
+.footer.simple.right {
+    width: calc(100% - var(--w-left-panel));
+    margin-left: var(--w-left-panel);
+}
+/* 좌/우 패널 제외하고 - 중앙에 배치되는 푸터 레이아웃 */
+.footer.simple.center {
+    width: calc(100% - var(--w-left-panel) - var(--w-right-panel));
+    margin-left: var(--w-left-panel);
+    margin-right: var(--w-right-panel);
+}

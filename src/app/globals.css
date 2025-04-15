@@ -1,0 +1,319 @@
+:root {
+    /* Color */
+    --background: #ffffff; /* 배경 */
+    --foreground: #171717; /* 전경 */
+    --clr-primary: #263994; /* 메인 컬러 */
+    --clr-primary-dark: #061146; /* footer 배경색 */
+    --clr-sky-blue: #2da6fa; /* 서브 컬러 */
+    --clr-light-blue: #fbfcff; /* 섹션 배경 */
+    --clr-soft-blue: #80c1ff; /* 문의하기 버튼색 */
+    --clr-label-blue: #e0e7f7; /* 태그 라벨 배경  */
+    --clr-dark-gray: #424242; /* 개인정보보호법 텍스트 */
+    --clr-gray: #797979; /* 가격표 컬럼 헤더 */
+    --clr-red: #ff424c; /* red */
+    --clr-light-red: #ffcce1; /* light red */
+    --clr-yellow: #ffd969; /* yellow */
+    --clr-white: #ffffff; /* white */
+    --clr-light-green: #8bc34a; /* 프로그레스바 완료 */
+
+    --clr-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    --clr-shadow-header: 0px 5px 15px rgba(0, 0, 0, 0.05);
+
+    /* ---------- Font Size ---------- */
+    --fs-48: 3rem; /* 홈 페이지 타이틀  */
+    --fs-42: 2.625rem; /* 홈 섹션의 headline */
+    --fs-30: 1.875rem /* 로그인 페이지 상단 타이틑 */
+    --fs-24: 1.5rem; /* 영상/사진 올리기 버튼, 24px 인데.. --fs-24로 하면 적용이 안됨 ㅠ.ㅠ  */
+    --fs-23: 1.5rem; /* 영상/사진 올리기 버튼, 24px 인데.. --fs-24로 하면 적용이 안됨 ㅠ.ㅠ  */
+    --fs-20: 1.25rem; /* 홈 파일 업로드영역 기능 텍스트 */
+    --fs-18: 1.125rem; /* 로그인하기 */
+    --fs-16: 1rem; /* 태그 라벨 */
+    --fs-14: 0.875rem; /* 원본파일 저장X */
+    --fs-12: 0.75rem; /* tooltip 텍스트 */
+
+    /* ---------- Font weight ---------- */
+    --fw-100: 100; /* thin */
+    --fw-200: 200; /* extralight */
+    --fw-300: 300; /* light */
+    --fw-400: 400; /* regular 기본 굵기 */
+    --fw-500: 500; /* medium */
+    --fw-600: 600; /* semibold */
+    --fw-700: 700; /* bold */
+    --fw-800: 800; /* extrabold */
+    --fw-900: 900; /* black */
+
+    /* ---------- Font Style ---------- */
+    --ff-style: 'Pretendard Variable', Pretendard, -apple-system, system-ui,
+        Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+        'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', sans-serif;
+
+    /* layout */
+    --h-header: 5rem; /* 헤더 높이 80px */
+    --h-footer: 11.438rem; /* 푸터 높이 183px */
+    --h-footer-simple: 3.75rem; /* 심플 푸터 높이 60px */
+    --w-right-panel: 26.25rem; /*  420px 미리보기 화면 오른쪽 패널 너비 */
+    --w-left-panel: 16.25rem; /* 260px 좌측 패널 너비  */
+}
+/*
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+*/
+
+/* ------------------------------------------------------------ 
+  스타일 초기화 
+------------------------------------------------------------ */
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    font-family: var(--ff-style);
+    font-size: 1rem; /* 일반적인 브라우저 폰트 크기 : 16px */
+    font-weight: var(--fw-400);
+}
+body {
+    color: var(--foreground);
+    background: var(--background);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+* {
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    list-style: none;
+    box-sizing: border-box;
+    background: transparent;
+    font-family: var(--ff-style);
+}
+a,
+a:link,
+a:visited,
+a:active,
+a:-webkit-any-link {
+    color: var(--clr-primary);
+    cursor: pointer;
+    text-decoration: none !important;
+}
+blockquote,
+q {
+    quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+:focus {
+    outline: 0;
+}
+ins {
+    text-decoration: none;
+}
+del {
+    text-decoration: line-through;
+}
+/* table 태그에 cellspacing="0" 넣어줘야 함 */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+p {
+    margin: 0;
+}
+
+/* ------------------------------------------------------------ 
+  정렬 및 포지션 등 유용한 스타일  
+------------------------------------------------------------ */
+/* -------- 페이지 Top Margin ------------ */
+.page_top_margin {
+    margin-top: var(--h-header);
+}
+
+/* ----- 헤더 스크롤 시 그림자 추가/삭제 ------ */
+.box_shadow {
+    box-shadow: var(--clr-shadow-header);
+}
+/* ------------ 정렬 ------------ */
+.inline_block {
+    display: inline-block !important;
+}
+.align_center {
+    text-align: center !important;
+}
+.flex_cetner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* ------------ 포지션 ------------ */
+.relative {
+    position: relative !important;
+}
+.absolute {
+    position: absolute !important;
+}
+.flex_horizontal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+.flex_vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+/* ------------ 너비 ------------ */
+.full_width {
+    width: 100% !important;
+}
+.underline { 
+    text-decoration: underline;
+}
+
+/* ------------------------------------------------------------ 
+  Pretendard 폰트 가져옴 
+------------------------------------------------------------ */
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Pretendard Black'), local('Pretendard-Black'),
+        url('#{$path-to-fonts}/pretendard/woff/Pretendard-Black.woff')
+            format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 800;
+    src: local('Pretendard ExtraBold'), local('Pretendard-ExtraBold'),
+        url('#{$path-to-fonts}/pretendard/woff/Pretendard-ExtraBold.woff')
+            format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Pretendard Bold'), local('Pretendard-Bold'),
+        url('#{$path-to-fonts}/pretendard/woff/Pretendard-Bold.woff')
+            format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Pretendard SemiBold'), local('Pretendard-SemiBold'),
+        url('#{$path-to-fonts}/pretendard/woff/Pretendard-SemiBold.woff')
+            format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Pretendard Medium'), local('Pretendard-Medium'),
+        url('#{$path-to-fonts}/pretendard/woff/Pretendard-Medium.woff')
+            format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Pretendard Regular'), local('Pretendard-Regular'),
+        url('#{$path-to-fonts}/pretendard/woff/Pretendard-Regular.woff')
+            format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Pretendard Light'), local('Pretendard-Light'),
+        url('#{$path-to-fonts}/pretendard/woff/Pretendard-Light.woff')
+            format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 200;
+    src: local('Pretendard ExtraLight'), local('Pretendard-ExtraLight'),
+        url('#{$path-to-fonts}/pretendard/woff/Pretendard-ExtraLight.woff')
+            format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 100;
+    src: local('Pretendard Thin'), local('Pretendard-Thin'),
+        url('#{$path-to-fonts}/pretendard/woff/Pretendard-Thin.woff')
+            format('woff');
+}
+
+/* ------------------------------------------------------------ 
+  요소 스크롤 애니메이션 스타일 
+------------------------------------------------------------ */
+.fade-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease-out;
+}
+
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+.fade-down {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: all 0.6s ease-out;
+}
+
+.fade-down.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* ------------------------------------------------------------ 
+  서서히 아래로 내려오는 애니메이션 스타일 
+------------------------------------------------------------ */
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -50px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
+
+.fade_down {
+    position: relative;
+    animation: fadeInDown 1s;
+}
+/*
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+*/

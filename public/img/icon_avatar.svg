@@ -1,0 +1,17 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_121_2040" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="40" height="40">
+<circle cx="20" cy="20" r="20" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_121_2040)">
+<path d="M13.3357 0H0V13.3357H13.3357V0Z" fill="#80C1FF"/>
+<path d="M26.6638 0H13.3281V13.3357H26.6638V0Z" fill="#E0E7F7"/>
+<path d="M39.9997 0H26.6641V13.3357H39.9997V0Z" fill="#3795FC"/>
+<path d="M13.3357 13.3286H0V26.6643H13.3357V13.3286Z" fill="#E0E7F7"/>
+<path d="M26.6638 13.3286H13.3281V26.6643H26.6638V13.3286Z" fill="white"/>
+<path d="M39.9997 13.3286H26.6641V26.6643H39.9997V13.3286Z" fill="#E0E7F7"/>
+<path d="M13.3357 26.6646H0V40.0002H13.3357V26.6646Z" fill="#3795FC"/>
+<path d="M26.6638 26.6646H13.3281V40.0002H26.6638V26.6646Z" fill="#80C1FF"/>
+<path d="M39.9997 26.6646H26.6641V40.0002H39.9997V26.6646Z" fill="white"/>
+</g>
+<circle cx="20" cy="20" r="19.5" stroke="#263994"/>
+</svg>
