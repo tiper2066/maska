@@ -173,6 +173,7 @@ const ContactForm = () => {
                         // minH='150px'
                         row={3}
                         borderRadius='1.563rem'
+                        backgroundColor='var(--clr-white)'
                     />
                 </FormControl>
 
@@ -187,6 +188,7 @@ const ContactForm = () => {
                     alignItems='center'
                     justifyContent='center'
                     position='relative'
+                    backgroundColor='var(--clr-white)'
                 >
                     <FormLabel
                         position='absolute'
