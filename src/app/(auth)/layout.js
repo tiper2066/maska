@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         <html lang='en' suppressHydrationWarning>
             <body>
                 <ChakraWrapper>
-                    <ContactBtn position='bottom' />
+                    <ContactBtn position='bottom-up' />
                     <Header user='user' />
                     {children}
                     <FooterSimple />

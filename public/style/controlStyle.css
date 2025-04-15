@@ -89,24 +89,11 @@
 /* --------------------------------------------------
     플로팅 버튼 - Cantact Btn (문의하기)
 -------------------------------------------------- */
+/* ------- 홈 페이지용 플로팅 버튼 ------- */
 .btn_contact {
     display: inline-block;
     position: fixed;
-    top: 44.688rem; /* 715px */
-    right: 2.5rem; /* 40px */
-    width: 6.25rem; /* 100px */
-    height: 6.25rem; /* 100px */
-    box-shadow: var(--clr-shadow);
-    background-color: transparent;
-    border-radius: 50%;
-    z-index: 800;
-}
-/* 미리보기 페이지용 - 하단 fixed */
-.btn_contact_bottom {
-    display: inline-block;
-    position: fixed;
-    top: none; /* 715px */
-    bottom: 4.375rem; /* 70px */
+    bottom: 1.875rem; /* 30px */
     right: 1.875rem; /* 30px */
     width: 6.25rem; /* 100px */
     height: 6.25rem; /* 100px */
@@ -114,6 +101,23 @@
     background-color: transparent;
     border-radius: 50%;
     z-index: 800;
+}
+/* 회원 전용 페이지용 - 푸터가 중앙에 있을 경우 */
+.btn_contact_bottom {
+    display: inline-block;
+    position: fixed;
+    bottom: 1.875rem; /* 30px */
+    right: 1.875rem; /* 30px */
+    width: 6.25rem; /* 100px */
+    height: 6.25rem; /* 100px */
+    box-shadow: var(--clr-shadow);
+    background-color: transparent;
+    border-radius: 50%;
+    z-index: 800;
+}
+/* 로그인/문의하기/회원가입/임시비번발급/회원정보/탈퇴하기 - 푸터 위에 배치 */
+.btn_contact_bottom.up {
+    bottom: calc(var(--h-footer-simple) + 1.875rem); /* 푸터높이 + 30px */
 }
 .btn_contact img,
 .btn_contact_bottom img {

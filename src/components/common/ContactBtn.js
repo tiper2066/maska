@@ -21,7 +21,11 @@ const ContactBtn = ({ position }) => {
             <Link
                 href='/contact'
                 className={
-                    position === 'bottom' ? 'btn_contact_bottom' : 'btn_contact'
+                    position === 'bottom'
+                        ? 'btn_contact_bottom'
+                        : position === 'bottom-up'
+                        ? 'btn_contact_bottom up'
+                        : 'btn_contact'
                 }
             >
                 <Image
