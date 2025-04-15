@@ -335,7 +335,7 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
     return (
         <>
             <div
-                className="file_upload_container relative"
+                className='file_upload_container relative'
                 style={{
                     padding: '1.875rem',
                     justifyContent: 'flex-start',
@@ -344,32 +344,32 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                 }}
             >
                 <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
+                    display='flex'
+                    justifyContent='space-between'
+                    alignItems='center'
                     style={{ marginBottom: '1.875rem' }}
                 >
-                    <div className="flex_horizontal">
-                        <Text className=" maska_status_title">
+                    <div className='flex_horizontal'>
+                        <Text className=' maska_status_title'>
                             마스카 진행상황
                         </Text>
                         {/* ----- 대기 순서 및 대기 시간 마우스 오버 팝업 ----- */}
-                        <Popover placement="top" trigger="hover">
+                        <Popover placement='top' trigger='hover'>
                             <PopoverTrigger>
-                                <Text className="maska_wating_badge flex_horizontal">
+                                <Text className='maska_wating_badge flex_horizontal'>
                                     대기 순서 n 번째
                                     <Image
-                                        className="icon_waiting"
-                                        src="/img/icon_waiting.svg"
-                                        alt="icon waiting"
+                                        className='icon_waiting'
+                                        src='/img/icon_waiting.svg'
+                                        alt='icon waiting'
                                         width={24}
                                         height={24}
                                     />
                                 </Text>
                             </PopoverTrigger>
                             <PopoverContent
-                                borderRadius="0.625rem"
-                                width="31.25rem"
+                                borderRadius='0.625rem'
+                                width='31.25rem'
                             >
                                 <PopoverBody
                                     sx={{
@@ -396,8 +396,8 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                                     <HStack spacing={4}>
                                         <Progress
                                             value={80}
-                                            size="sm"
-                                            flex="1" // 가로로 늘어나게
+                                            size='sm'
+                                            flex='1' // 가로로 늘어나게
                                             sx={{
                                                 borderRadius: '1.875rem',
                                                 '& > div:first-of-type': {
@@ -420,7 +420,7 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                             </PopoverContent>
                         </Popover>
                     </div>
-                    <Text className="badge_chance">
+                    <Text className='badge_chance'>
                         {`${remainingCount}/${maxCount}건 가능`}
                     </Text>
                 </Box>
@@ -429,8 +429,8 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                     <Box
                         key={index}
                         p={4}
-                        borderWidth="1px"
-                        bg="white"
+                        borderWidth='1px'
+                        bg='white'
                         style={{
                             borderColor:
                                 fileStatuses[index]?.status === '마스카 대기 중'
@@ -445,20 +445,30 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                             borderRadius: '0.625rem',
                             marginBottom: '0.938rem',
                         }}
+                        cursor={
+                            fileStatuses[index]?.status === '마스카 완료'
+                                ? 'pointer'
+                                : 'default'
+                        }
+                        onClick={() => {
+                            if (fileStatuses[index]?.status === '마스카 완료') {
+                                handleCancelClick(index);
+                            }
+                        }}
                     >
-                        <HStack justify="space-between" spacing={10}>
+                        <HStack justify='space-between' spacing={10}>
                             <VStack
-                                align="start"
+                                align='start'
                                 spacing={1}
-                                minWidth="12.5rem"
+                                minWidth='12.5rem'
                             >
                                 <Text
-                                    fontSize="var(--fs-18)"
+                                    fontSize='var(--fs-18)'
                                     style={{ textAlign: 'left' }}
                                 >
                                     {file.name}
                                 </Text>
-                                <Text fontSize="18px">
+                                <Text fontSize='18px'>
                                     {formatFileSize(file.size)}
                                 </Text>
                             </VStack>
@@ -471,8 +481,8 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                                     style={{
                                         width: '100%',
                                     }}
-                                    justify="space-between"
-                                    align="flex-start"
+                                    justify='space-between'
+                                    align='flex-start'
                                     spacing={4}
                                 >
                                     {/* 마스카 진행 상태 뱃지  */}
@@ -503,7 +513,7 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                                                 ? 'var(--clr-primary)'
                                                 : 'gray.500' // 기본 색상
                                         }
-                                        className="maska_status_badge"
+                                        className='maska_status_badge'
                                     >
                                         {fileStatuses[index]?.status ===
                                         '마스카 완료'
@@ -521,7 +531,7 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                                             value={
                                                 fileStatuses[index]?.progress
                                             }
-                                            size="sm"
+                                            size='sm'
                                             sx={{
                                                 '& > div:first-of-type': {
                                                     backgroundColor:
@@ -533,10 +543,10 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                                                 },
                                                 borderRadius: '1.875rem',
                                             }}
-                                            flex="1"
+                                            flex='1'
                                         />
                                         <Text
-                                            className="percentage"
+                                            className='percentage'
                                             color={
                                                 fileStatuses[index]?.status ===
                                                 '마스카 완료'
@@ -550,23 +560,23 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                                 </VStack>
                             </HStack>
                             <Button
-                                variant="ghost"
+                                variant='ghost'
                                 onClick={() => handleCancelClick(index)}
                             >
                                 {fileStatuses[index]?.status ===
                                 '마스카 완료' ? (
                                     <Image
-                                        className="icon_arrow_complete"
-                                        src="/img/icon_arrow_complete.svg"
-                                        alt="maska complete icon"
+                                        className='icon_arrow_complete'
+                                        src='/img/icon_arrow_complete.svg'
+                                        alt='maska complete icon'
                                         width={24}
                                         height={24}
                                     />
                                 ) : (
                                     <Image
-                                        className="icon_cancel_x"
-                                        src="/img/icon_cancel_x.svg"
-                                        alt="cancel x icon"
+                                        className='icon_cancel_x'
+                                        src='/img/icon_cancel_x.svg'
+                                        alt='cancel x icon'
                                         width={24}
                                         height={24}
                                     />
@@ -586,9 +596,9 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                     }}
                 >
                     <ModalHeader
-                        display="flex"
-                        justifyContent="space-between"
-                        alignItems="center"
+                        display='flex'
+                        justifyContent='space-between'
+                        alignItems='center'
                     >
                         <Text
                             sx={{
@@ -602,17 +612,17 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                         </Text>
                     </ModalHeader>
                     <ModalFooter
-                        className="flex_horizontal"
+                        className='flex_horizontal'
                         style={{ gap: '1rem', justifyContent: 'center' }}
                     >
                         <Link
                             onClick={handleContinue}
-                            className="btn_round btn_outline btn_md"
+                            className='btn_round btn_outline btn_md'
                         >
                             아니요
                         </Link>
                         <Link
-                            className="btn_round btn_md"
+                            className='btn_round btn_md'
                             onClick={handleConfirmCancel}
                         >
                             취소하기
@@ -634,9 +644,9 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                     }}
                 >
                     <ModalHeader
-                        display="flex"
-                        justifyContent="space-between"
-                        alignItems="center"
+                        display='flex'
+                        justifyContent='space-between'
+                        alignItems='center'
                     >
                         <Text
                             sx={{
@@ -651,19 +661,19 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                         </Text>
                     </ModalHeader>
                     <ModalFooter
-                        className="flex_horizontal"
+                        className='flex_horizontal'
                         style={{ gap: '1rem', justifyContent: 'center' }}
                     >
                         <Link
                             mr={3}
-                            className="btn_round btn_outline btn_md"
+                            className='btn_round btn_outline btn_md'
                             onClick={handleNavigationContinue}
                         >
                             나가기
                         </Link>
                         <Link
                             onClick={handleNavigationCancel}
-                            className="btn_round btn_md"
+                            className='btn_round btn_md'
                         >
                             작업 확인하기
                         </Link>

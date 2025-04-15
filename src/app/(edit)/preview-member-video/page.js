@@ -64,8 +64,8 @@ const PreviewMemberVideo = () => {
                     <div
                         style={{
                             position: 'relative',
-                            width: '100%',
-                            height: '43.75rem', // 700px
+                            width: '90%',
+                            height: '40.625rem', // 650px
                         }}
                     >
                         <Image

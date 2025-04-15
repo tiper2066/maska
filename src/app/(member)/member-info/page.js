@@ -25,8 +25,9 @@ const MemberInfo = () => {
                     justifyContent='flex-start'
                     alignItems='center'
                     height='calc(100vh - 12.5rem)'
+                    overflowY='auto' // 세로 스크롤 활성화
                 >
-                    <Box w='100%' maxW='550px' p={8}>
+                    <Box w='100%' maxW='550px' pt={0}>
                         <div
                             className='page_contents sec_main member'
                             style={{
@@ -35,6 +36,8 @@ const MemberInfo = () => {
                             }}
                         >
                             <MemberInforForm />
+                            {/* ---- 스크롤을 위한 강제 높이 100px 추가 ---- */}
+                            <Box h='6.25rem'></Box>
                         </div>
                     </Box>
                     {/* 회원 탈퇴하기 */}

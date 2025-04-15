@@ -25,6 +25,8 @@ export default function SignUpPage() {
 
                 {/* 클라이언트 컴포넌트 - 인터랙티브한 폼 부분 */}
                 <SignUpForm />
+                {/* ---- 스크롤을 위한 강제 높이 100px 추가 ---- */}
+                <Box h='6.25rem'></Box>
             </Box>
         </Center>
     );

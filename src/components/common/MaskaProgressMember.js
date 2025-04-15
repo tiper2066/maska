@@ -460,6 +460,16 @@ const MaskaProgressMember = ({
                                     ? 'var(--clr-white)'
                                     : 'gray.500', // 기본 색상
                         }}
+                        cursor={
+                            fileStatuses[index]?.status === '마스카 완료'
+                                ? 'pointer'
+                                : 'default'
+                        }
+                        onClick={() => {
+                            if (fileStatuses[index]?.status === '마스카 완료') {
+                                handleCancelClick(index);
+                            }
+                        }}
                     >
                         <HStack justify='space-between' spacing={10}>
                             <VStack
@@ -596,6 +606,7 @@ const MaskaProgressMember = ({
                 ))}
 
                 <Link
+                    href='/main-member'
                     className='btn_round btn_md'
                     sx={{ alignSelf: 'flex-end' }}
                 >

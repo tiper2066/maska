@@ -33,8 +33,8 @@ const EditMemberImage = () => {
                     <div
                         style={{
                             position: 'relative',
-                            width: '100%',
-                            height: '50rem', // 800px
+                            width: '90%',
+                            height: '43.75rem', // 700px
                         }}
                     >
                         <Image

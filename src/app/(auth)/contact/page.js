@@ -10,6 +10,8 @@ export default function Contact() {
             bg='var(--clr-light-blue)'
             alignItems='flex-start'
             pt='10rem'
+            height='calc(100vh - 12.5rem)'
+            overflowY='auto' // 세로 스크롤 활성화
         >
             <Box
                 w='100%'
@@ -34,6 +36,8 @@ export default function Contact() {
                 </Text>
 
                 <ContactForm />
+                {/* ---- 스크롤을 위한 강제 높이 100px 추가 ---- */}
+                <Box h='6.25rem'></Box>
             </Box>
         </Center>
     );
