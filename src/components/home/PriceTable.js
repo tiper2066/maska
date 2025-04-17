@@ -32,9 +32,10 @@ const PriceTable = ({ priceProps, user }) => {
                 </li>
                 <li>
                     <p className='item_name'>
-                        {user === 'member'
+                        {/* {user === 'member'
                             ? '작업 파일 개수 제한'
-                            : '업로드 파일 개수 제한'}
+                            : '업로드 파일 개수 제한'} */}
+                        작업 파일 개수 제한
                     </p>
                     {user === 'member' ? (
                         <p className='item_value_blue'>{uploadFileLimit}</p>
@@ -44,9 +45,10 @@ const PriceTable = ({ priceProps, user }) => {
                 </li>
                 <li>
                     <p className='item_name'>
-                        {user === 'member'
+                        {/* {user === 'member'
                             ? '다운로드 파일 개수 제한'
-                            : '작업 파일 개수 제한'}
+                            : '작업 파일 개수 제한'} */}
+                        다운로드 파일 개수 제한
                     </p>
                     {user === 'member' ? (
                         <p className='item_value_blue'>{workFileLimit}</p>
