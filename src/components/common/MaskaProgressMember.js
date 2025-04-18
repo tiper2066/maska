@@ -11,6 +11,7 @@ import {
     ModalHeader,
     ModalFooter,
     Popover,
+    PopoverArrow,
     PopoverTrigger,
     PopoverContent,
     PopoverBody,
@@ -402,16 +403,19 @@ const MaskaProgressMember = ({
                             </PopoverTrigger>
                             <PopoverContent
                                 borderRadius='0.625rem'
-                                width='31.25rem'
+                                width='19.688rem' // 315px
+                                bgColor='var(--clr-primary)'
+                                color='var(--clr-white)'
                             >
+                                <PopoverArrow bgColor='var(--clr-primary)' />
                                 <PopoverBody
                                     sx={{
-                                        padding: '3.125rem 1.875rem',
+                                        padding: '1.875rem 1.875rem',
                                         '& p': {
-                                            fontSize: 'var(--fs-20)',
+                                            fontSize: 'var(--fs-14)',
                                         },
                                         '& p:nth-of-type(3)': {
-                                            fontSize: 'var(--fs-24)',
+                                            fontSize: 'var(--fs-16)',
                                             margin: '1rem 0',
                                         },
                                         '& p:nth-of-type(3) span': {
@@ -433,6 +437,7 @@ const MaskaProgressMember = ({
                                             flex='1' // 가로로 늘어나게
                                             sx={{
                                                 borderRadius: '1.875rem',
+                                                backgroundColor: '#D8DDED', // 진행바 전체 배경
                                                 '& > div:first-of-type': {
                                                     backgroundColor:
                                                         'var(--clr-sky-blue)', // 실제 진행바 부분 색상
@@ -441,7 +446,7 @@ const MaskaProgressMember = ({
                                         />
                                         <Text
                                             sx={{
-                                                fontSize: 'var(--fs-18)',
+                                                fontSize: 'var(--fs-14)',
                                                 fontWeight: 'var(--fw-600)',
                                                 color: 'var(--clr-sky-blue)',
                                             }}
