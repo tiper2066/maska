@@ -183,7 +183,7 @@ const PreviewMemberImage = () => {
                                 e.preventDefault();
                             }}
                         >
-                            바로 다운로드하기
+                            해당 파일 바로 다운로드하기
                         </Link>
                         <p
                             style={{

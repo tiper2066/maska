@@ -11,19 +11,20 @@ import {
     ModalHeader,
     ModalFooter,
     Popover,
+    PopoverArrow,
     PopoverTrigger,
     PopoverContent,
     PopoverBody,
     Link,
-    Tooltip,
     useDisclosure,
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useRouter } from 'next/navigation'; // Next.js App Router
+import { usePathname, useRouter } from 'next/navigation'; // Next.js App Router
 
 const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
     const router = useRouter(); // 라우터 객체 생성
+    const pathname = usePathname(); // 라우터 경로
     // 각각의 선택 파일 상태를 객체로 생성함
     const [fileStatuses, setFileStatuses] = useState(
         files.map(() => ({
@@ -167,7 +168,7 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
         window.history.pushState(null, '', window.location.pathname);
 
         return () => {
-            // window.removeEventListener('beforeunload', handleBeforeUnload);
+            // window.removeEventListener('beforeunload', handleBeforeUnload); // 이 코드 활성화 하면 브라우저가 감지해서 나가기 alert 뜸
             window.removeEventListener('popstate', handlePopState);
         };
     }, [hasUnsavedChanges, onNavigationModalOpen]);
@@ -178,7 +179,9 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
         // 현재 스크립트의 실행이 완료된 후 뒤로가기 동작 수행
         setTimeout(() => {
             // window.history.back();
-            router.push('/');
+            // router.push('/');
+            window.location.reload(); // 새로 고침
+            return;
         }, 0);
     }, [onNavigationModalClose, router]);
 
@@ -333,6 +336,33 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
     // 남은 건수 계산: 최대 건수(maxCount)에서 현재 활성 파일 수(currentCount)를 뺌
     const remainingCount = maxCount - currentCount + cancelledCount;
 
+    // 가져온 파일 확장자를 확인하여 확장자에 따라 관련 미리보기 페이지로 이동하기
+    const navigatePreview = () => {
+        const fileArray = []; // 파일 형식을 포함할 배열
+        // 가져온 파일명을 분리해서 이미지인지 동영상인지 배열에 저장
+        activeFiles.map((file, index) => {
+            file.name.split('.').forEach((item) => {
+                if (item === 'jpg' || item === 'png' || item === 'jpeg') {
+                    fileArray.push('img');
+                } else if (
+                    item === 'mp4' ||
+                    item === 'mov' ||
+                    item === 'wmv' ||
+                    item === 'avi'
+                ) {
+                    fileArray.push('video');
+                } else {
+                    return;
+                }
+            });
+        });
+        if (fileArray.includes('video')) {
+            router.push('/preview-user-video');
+        } else {
+            router.push('/preview-user-img');
+        }
+    };
+
     return (
         <>
             <div
@@ -370,16 +400,19 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                             </PopoverTrigger>
                             <PopoverContent
                                 borderRadius='0.625rem'
-                                width='31.25rem'
+                                width='19.688rem' // 315px
+                                bgColor='var(--clr-primary)'
+                                color='var(--clr-white)'
                             >
+                                <PopoverArrow bgColor='var(--clr-primary)' />
                                 <PopoverBody
                                     sx={{
-                                        padding: '3.125rem 1.875rem',
+                                        padding: '1.875rem 1.875rem',
                                         '& p': {
-                                            fontSize: 'var(--fs-20)',
+                                            fontSize: 'var(--fs-14)',
                                         },
                                         '& p:nth-of-type(3)': {
-                                            fontSize: 'var(--fs-24)',
+                                            fontSize: 'var(--fs-16)',
                                             margin: '1rem 0',
                                         },
                                         '& p:nth-of-type(3) span': {
@@ -401,6 +434,7 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                                             flex='1' // 가로로 늘어나게
                                             sx={{
                                                 borderRadius: '1.875rem',
+                                                backgroundColor: '#D8DDED', // 진행바 전체 배경
                                                 '& > div:first-of-type': {
                                                     backgroundColor:
                                                         'var(--clr-sky-blue)', // 실제 진행바 부분 색상
@@ -409,7 +443,7 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                                         />
                                         <Text
                                             sx={{
-                                                fontSize: 'var(--fs-18)',
+                                                fontSize: 'var(--fs-14)',
                                                 fontWeight: 'var(--fw-600)',
                                                 color: 'var(--clr-sky-blue)',
                                             }}
@@ -676,7 +710,8 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                             나가기
                         </Link>
                         <Link
-                            onClick={handleNavigationCancel}
+                            // onClick={handleNavigationCancel}
+                            onClick={navigatePreview}
                             className='btn_round btn_md'
                         >
                             작업 확인하기

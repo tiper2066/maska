@@ -138,7 +138,10 @@ export default function SignUpForm() {
             return false;
         }
         if (!passwordRegex.test(password)) {
-            setPasswordError('8~20자의 영문&숫자 입력, 특수문자 금지');
+            // setPasswordError('8~20자의 영문&숫자 입력, 특수문자 금지');
+            setPasswordError(
+                '8~20자의 영문&숫자 입력, 특수문자 입력 ~!@#$%^&*()_+={}<>|`:;?,[]`'
+            );
             return false;
         }
         if (password !== correctPassword) {
@@ -376,7 +379,7 @@ export default function SignUpForm() {
                         onChange={(e) => setTerms1(e.target.checked)}
                         isRequired
                     >
-                        [필수] 포즈 서비스 계약 동의
+                        [필수] 표준 서비스 계약 동의
                     </Checkbox>
                     <Spacer />
                     <Link

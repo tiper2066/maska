@@ -163,7 +163,7 @@ const MaskaProgressMember = ({
         };
 
         // 이벤트 리스너 등록
-        window.addEventListener('beforeunload', handleBeforeUnload);
+        // window.addEventListener('beforeunload', handleBeforeUnload); // 이 코드 활성화 하면 브라우저가 감지해서 나가기 alert 뜸
         window.addEventListener('popstate', handlePopState);
 
         // Next.js 15.2.4에서는 App Router를 사용하므로,
@@ -182,7 +182,9 @@ const MaskaProgressMember = ({
         // 현재 스크립트의 실행이 완료된 후 뒤로가기 동작 수행
         setTimeout(() => {
             // window.history.back();
-            router.push('/');
+            // router.push('/main-member');
+            window.location.reload(); // 새로 고침
+            return;
         }, 0);
     }, [onNavigationModalClose, router]);
 
@@ -335,6 +337,33 @@ const MaskaProgressMember = ({
 
     // 남은 건수 계산: 최대 건수(maxCount)에서 현재 활성 파일 수(currentCount)를 뺌
     const remainingCount = maxCount - currentCount + cancelledCount;
+
+    // 가져온 파일 확장자를 확인하여 확장자에 따라 관련 미리보기 페이지로 이동하기
+    const navigatePreview = () => {
+        const fileArray = []; // 파일 형식을 포함할 배열
+        // 가져온 파일명을 분리해서 이미지인지 동영상인지 배열에 저장
+        activeFiles.map((file, index) => {
+            file.name.split('.').forEach((item) => {
+                if (item === 'jpg' || item === 'png' || item === 'jpeg') {
+                    fileArray.push('img');
+                } else if (
+                    item === 'mp4' ||
+                    item === 'mov' ||
+                    item === 'wmv' ||
+                    item === 'avi'
+                ) {
+                    fileArray.push('video');
+                } else {
+                    return;
+                }
+            });
+        });
+        if (fileArray.includes('video')) {
+            router.push('/preview-member-video');
+        } else {
+            router.push('/preview-member-img');
+        }
+    };
 
     return (
         <>
@@ -699,7 +728,8 @@ const MaskaProgressMember = ({
                             나가기
                         </Link>
                         <Link
-                            onClick={handleNavigationCancel}
+                            // onClick={handleNavigationCancel}
+                            onClick={navigatePreview}
                             className='btn_round btn_md'
                         >
                             작업 확인하기

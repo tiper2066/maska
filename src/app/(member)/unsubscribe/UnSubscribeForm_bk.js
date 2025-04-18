@@ -17,7 +17,6 @@ import {
     MenuList,
     MenuButton,
     MenuItem,
-    FormErrorMessage,
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
@@ -31,8 +30,6 @@ const UnSubscribeForm = () => {
     const [password, setPassword] = useState('');
     const [isModalOpenUnSubscribe, setIsModalOpenUnSubscribe] = useState(false); // 회원 탈퇴 모달 오픈 여부
     const [passwordError, setPasswordError] = useState('');
-    const [selectedError, setSelectedError] = useState(false); // 탈퇴 이유 선택 에러 메시지
-    const [reasonError, setReasonError] = useState(false); // 탈퇴 사유 입력 에러 메시지
 
     const options = [
         '원하는 기능이 제공되지 않음',
@@ -47,19 +44,10 @@ const UnSubscribeForm = () => {
         '기타',
     ];
     const [selected, setSelected] = useState(''); // 문의 유형 항목 상태 변수
-    const [reason, setReason] = useState(''); // 텍스트 입력된 탈퇴 사유
 
     // 모달 창 열기 이벤트 핸들러
     const handleModalOpen = () => {
-        const isSelectedValid = selected.trim() !== '';
-        const isReasonValid = reason.trim() !== '';
-
-        setSelectedError(!isSelectedValid);
-        setReasonError(!isReasonValid);
-
-        if (isSelectedValid && isReasonValid) {
-            setIsModalOpenUnSubscribe(true);
-        }
+        setIsModalOpenUnSubscribe(true); // 이메일 발송 성공 모달 오픈
     };
 
     // 모달 창 닫기 이벤트 핸들러 (모든 모달을 닫는다.)
@@ -74,7 +62,7 @@ const UnSubscribeForm = () => {
             handleModalClose(); // 모달 창 닫기
             setShowSuccess(true); // 성공 메시지 표시
         } else {
-            // console.log('회원 탈퇴 실패 ');
+            console.log('회원 탈퇴 실패 ');
             setShowSuccess(false); // 성공 메시지 숨김
         }
     };
@@ -114,7 +102,7 @@ const UnSubscribeForm = () => {
                     일주일 동안 동일한 계정으로 재가입은 제한됩니다.
                 </p>
                 {/* 탈퇴 사유 선택 */}
-                <FormControl isRequired isInvalid={selectedError}>
+                <FormControl isRequired>
                     <FormLabel fontSize='var(--fs-18)'>
                         어떤 이유로 회원을 탈퇴하려고 하시나요?
                     </FormLabel>
@@ -141,7 +129,7 @@ const UnSubscribeForm = () => {
                                 borderColor: 'var(--clr-primary)',
                             }}
                         >
-                            {selected || '사유를 선택해 주세요'}
+                            {selected || '문의 유형을 선택해 주세요'}
                         </MenuButton>
                         <MenuList width='100%' size='lg'>
                             {options.map((option) => (
@@ -155,19 +143,9 @@ const UnSubscribeForm = () => {
                             ))}
                         </MenuList>
                     </Menu>
-                    {selectedError && (
-                        <FormErrorMessage
-                            color='red.500'
-                            fontSize='sm'
-                            mt={1}
-                            pl={6}
-                        >
-                            필수 입력 항목입니다.
-                        </FormErrorMessage>
-                    )}
                 </FormControl>
                 {/* 탈퇴 사유 자세히 작성 */}
-                <FormControl isRequired isInvalid={reasonError}>
+                <FormControl isRequired>
                     <FormLabel fontSize='var(--fs-18)'>
                         더 나은 서비스 제공을 위해 탈퇴 사유를 작성해주세요.
                     </FormLabel>
@@ -177,19 +155,7 @@ const UnSubscribeForm = () => {
                         minH='150px'
                         borderRadius='1.563rem'
                         backgroundColor='var(--clr-white)'
-                        value={reason}
-                        onChange={(e) => setReason(e.target.value)}
                     />
-                    {reasonError && (
-                        <FormErrorMessage
-                            color='red.500'
-                            fontSize='sm'
-                            mt={1}
-                            pl={6}
-                        >
-                            필수 입력 항목입니다.
-                        </FormErrorMessage>
-                    )}
                 </FormControl>
 
                 <FormControl mt={4}>
@@ -227,16 +193,7 @@ const UnSubscribeForm = () => {
                 modalOption={modalOptionSuccess} // 모달 UI 요소를 위한 옵션 전달
                 isUnSubscribeModal={true}
                 passwordError={passwordError}
-            >
-                {/* 비밀번호 확인 실패 메시지 */}
-                {passwordError && (
-                    <Alert status='error' mb={4}>
-                        <AlertIcon />
-                        <AlertDescription>{passwordError}</AlertDescription>
-                    </Alert>
-                )}
-                {/* ... */}
-            </ModalComponent>
+            />
             {/* ---- 탈퇴 성공 시, Alert 창을 표시함 ---- */}
             {showSuccess && (
                 <Alert

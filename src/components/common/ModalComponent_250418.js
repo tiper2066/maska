@@ -91,31 +91,19 @@ const ModalComponent = ({
         return false;
     };
 
-    // 현재 비밀번호 유효성 검사
-    const validateCurrentPassword = () => {
-        if (!currentPassword || currentPassword.trim() === '') {
-            setPasswordError('현재 비밀번호를 입력해주세요.');
-            return false;
-        }
-        // Add more validation logic here if needed
-        setPasswordError('');
-        return true;
-    };
-
     // 폼 제출 시
     const handleSubmit = (e) => {
         e.preventDefault();
-        const isCurrentPasswordValid = validateCurrentPassword();
-        const isNewPasswordValid = validatePassword();
+        const isPasswordValid = validatePassword();
         const isConfirmPasswordValid = validateConfirmPassword();
 
         if (
-            isCurrentPasswordValid &&
-            isNewPasswordValid &&
-            isConfirmPasswordValid
+            isNameValid &&
+            isPasswordValid &&
+            isConfirmPasswordValid &&
+            !isLoginLocked
         ) {
-            // Submit the form
-            handleConfirm();
+            router.push('/main-member');
         }
     };
 
@@ -359,7 +347,7 @@ const ModalComponent = ({
                         className='btn_round btn_lg full_width'
                         onClick={(e) => {
                             e.preventDefault();
-                            handleSubmit(e);
+                            handleConfirm();
                         }}
                     >
                         {modalOption.btnLabelPositive}
