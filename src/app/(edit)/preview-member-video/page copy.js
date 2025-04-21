@@ -13,46 +13,20 @@ import QuickTaskPanelComponent from '@/components/common/QuickTaskPanelComponent
 const PreviewMemberVideo = () => {
     const router = useRouter(); // 라우터 객체 생성
     const [isModalOpenXBtn, setIsModalOpenXBtn] = useState(false); // 다운로드하지 않고 나가기 (X 버튼) 모달 오픈 여부
-    const [isModalOpenFileDownload, setIsModalOpenFileDownload] =
-        useState(false); // 해당 파일 바로 다운로드하기 모달 오픈 여부
-    const [isModalOpenCompress, setIsModalOpenCompress] = useState(false); // 전체 파일 압축 다운로드하기 모달 오픈 여부
-    const [isModalOpenReadyDownload, setIsModalOpenReadyDownload] =
-        useState(false); // 다운로드 준비 중 모달 오픈 여부
-    const [isReadyDownloadModal, setIsReadyDownloadModal] = useState(false); // 다운로드 준비 중 모달인지 여부
 
     // 모달 창 열기 이벤트 핸들러
-    const handleModalOpen = (crrentModal) => {
-        // 우측 영역 X 버튼이면...
-        if (crrentModal === 'XBtnModal') {
-            setIsModalOpenXBtn(true);
-        } else if (crrentModal === 'fileDownloadModal') {
-            setIsModalOpenFileDownload(true);
-        } else if (crrentModal === 'compressDownloadModal') {
-            setIsModalOpenCompress(true);
-        } else if (crrentModal === 'readyDownloadModal') {
-            setIsModalOpenReadyDownload(true);
-        }
+    const handleModalOpen = () => {
+        setIsModalOpenXBtn(true);
     };
 
     // 모달 창 닫기 이벤트 핸들러 (모든 모달을 닫는다.)
     const handleModalClose = () => {
         setIsModalOpenXBtn(false);
-        setIsModalOpenFileDownload(false);
-        setIsModalOpenCompress(false);
-        setIsReadyDownloadModal(false);
     };
 
     // 새로운 파일 업로드하기 클릭 이벤트 핸들러
     const handleNewFileUpload = () => {
         router.push('/'); // 홈으로 이동
-    };
-
-    /* 헤더로 전달하는 옵션 */
-    const pageHeaderProps = {
-        isPagePath: true,
-        backPath: '/main-member',
-        headerTitle: 'Quick 작업',
-        pagePathName: '마스카 작업 정보',
     };
 
     // 다운로드하지 않고 나가기 창 옵션 설정 (우측 패널 X 버튼)
@@ -63,40 +37,12 @@ const PreviewMemberVideo = () => {
         btnLabelPositive: '다운로드하기',
     };
 
-    // 해당 파일 바로 다운로드하기 모달 옵션
-    const modalOptionFileDownload = {
-        title: '바로 다운로드 하시겠습니까?',
-        description: null,
-        btnLabelNagative: '아니오',
-        btnLabelPositive: '다운로드하기',
-    };
-
-    // 해당 파일 바로 다운로드 모달에서 다운로드하기 버튼 클릭 시 - 다운로드 준비 중 모달 열기
-    const handleReadyDownload = () => {
-        setIsModalOpenFileDownload(false); // 바로 다운로드하기 모달 닫기
-        handleModalOpen('readyDownloadModal');
-    };
-
-    // 다운로드 준비 중 모달에서 나가기 버튼 클릭 시
-    const handleOutBtnClick = () => {
-        console.log('나가기 버튼 클릭');
-        setIsModalOpenReadyDownload(false); // 실제 모달을 닫는 상태
-    };
-
-    // 해당 파일 바로 다운로드하기 모달 옵션
-    const modalOptionCompressDownload = {
-        title: '전체 파일을 압축하여 다운로드 하시겠습니까?',
-        description: null,
-        btnLabelNagative: '아니오',
-        btnLabelPositive: '전체 다운로드하기',
-    };
-
-    // 다운로드 준비 중 모달 옵션
-    const modalOptionReadyDownload = {
-        title: '다운로드 준비 중입니다.',
-        description: '지금 나가면 다운로드가 진행되지 않습니다.',
-        btnLabelNagative: '',
-        btnLabelPositive: '나가기',
+    /* 헤더로 전달하는 옵션 */
+    const pageHeaderProps = {
+        isPagePath: true,
+        backPath: '/main-member',
+        headerTitle: 'Quick 작업',
+        pagePathName: '마스카 작업 정보',
     };
 
     return (
@@ -235,7 +181,6 @@ const PreviewMemberVideo = () => {
                             className='btn_round btn_lg full_width'
                             onClick={(e) => {
                                 e.preventDefault();
-                                handleModalOpen('fileDownloadModal');
                             }}
                         >
                             해당 파일 바로 다운로드하기
@@ -243,10 +188,6 @@ const PreviewMemberVideo = () => {
                         <Link
                             href=''
                             className='btn_round btn_lg btn_darkblue full_width'
-                            onClick={(e) => {
-                                e.preventDefault();
-                                handleModalOpen('compressDownloadModal');
-                            }}
                         >
                             전체 파일 압축 다운로드하기
                         </Link>
@@ -264,7 +205,6 @@ const PreviewMemberVideo = () => {
                             className='btn_round btn_lg btn_black full_width'
                             onClick={(e) => {
                                 e.preventDefault();
-                                router.push('/main-member');
                             }}
                         >
                             새로운 파일 업로드하기
@@ -278,31 +218,6 @@ const PreviewMemberVideo = () => {
                     handleModalNegative={handleNewFileUpload} // 부정 버튼용 함수 전달
                     handleConfirm={handleModalClose} // 예 또는 긍정 버튼용 함수 전달
                     modalOption={modalOptionXBtn} // 모달 UI 요소를 위한 옵션 전달
-                />
-                {/* ------ 해당 파일 바로 다운르드하기 모달 ------- */}
-                <ModalComponent
-                    isModalOpen={isModalOpenFileDownload} // 오픈 여부 상태 변수 전달
-                    handleModalClose={handleModalClose} // 닫기 버튼용 함수 전달
-                    handleModalNegative={handleModalClose} // 부정 버튼용 함수 전달
-                    handleConfirm={handleReadyDownload} // 예 또는 긍정 버튼용 함수 전달
-                    modalOption={modalOptionFileDownload} // 모달 UI 요소를 위한 옵션 전달
-                />
-                {/* ------ 전체 파일 압축 다운로드하기 모달 ------- */}
-                <ModalComponent
-                    isModalOpen={isModalOpenCompress} // 오픈 여부 상태 변수 전달
-                    handleModalClose={handleModalClose} // 닫기 버튼용 함수 전달
-                    handleModalNegative={handleModalClose} // 부정 버튼용 함수 전달
-                    handleConfirm={handleModalClose} // 예 또는 긍정 버튼용 함수 전달
-                    modalOption={modalOptionCompressDownload} // 모달 UI 요소를 위한 옵션 전달
-                />
-                {/* ------ 다운로드 준비 중 모달 ------- */}
-                <ModalComponent
-                    isModalOpen={isModalOpenReadyDownload} // 오픈 여부 상태 변수 전달
-                    handleModalClose={handleModalClose} // 닫기 버튼용 함수 전달
-                    // handleModalNegative={handleModalClose} // 부정 버튼용 함수 전달
-                    handleConfirm={handleOutBtnClick} // 예 또는 긍정 버튼용 함수 전달
-                    modalOption={modalOptionReadyDownload} // 모달 UI 요소를 위한 옵션 전달
-                    isReadyDownloadModal={true} // 다운로드 준비 중 모달인지 여부
                 />
             </div>
         </div>

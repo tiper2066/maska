@@ -631,6 +631,7 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                 <ModalContent
                     sx={{
                         padding: '30px 50px 20px 50px',
+                        minWidth: '31.25rem',
                     }}
                 >
                     <ModalHeader
@@ -646,7 +647,7 @@ const MaskaProgress = ({ files, onCancelledFiles, currentCount, maxCount }) => {
                                 width: '100%',
                             }}
                         >
-                            작업중인 마스카를 취소하시겠습니까?
+                            진행 중인 마스카를 취소하시겠습니까?
                         </Text>
                     </ModalHeader>
                     <ModalFooter

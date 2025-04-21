@@ -26,6 +26,14 @@
     pointer-events: none;
 }
 
+/* ------ Extra Small Size ( 전체 삭제 버튼 ) ------- */
+.btn_round.btn_xs {
+    font-size: var(--fs-16);
+    font-weight: var(--fw-500);
+    padding: 0 1.25rem; /* 20px */
+    height: 2.188rem; /* 35px */
+}
+
 /* ------ Small Size (헤더: 로그인하기) ------- */
 .btn_round.btn_sm {
     font-size: var(--fs-18);
@@ -67,6 +75,11 @@
 .btn_round.btn_black {
     border-color: var(--foreground) !important;
     background-color: var(--foreground) !important;
+}
+/* ------------- Dark Blue Color ------------- */
+.btn_round.btn_darkblue {
+    border-color: var(--clr-dark-blue) !important;
+    background-color: var(--clr-dark-blue) !important;
 }
 /* ------------- Sky Blue Color ------------- */
 .btn_round.btn_skyblue {
@@ -123,6 +136,12 @@
 .btn_contact_bottom img {
     width: 6.25rem; /* 100px */
     height: 6.25rem; /* 100px */
+}
+/* 툴팁 레이블 스타일 */
+.tooltip-label {
+    padding: 0.25rem 0.5rem;
+    display: inline-block;
+    /* border-radius: 0.25rem; */
 }
 
 /* --------------------------------------------------

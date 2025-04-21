@@ -40,10 +40,8 @@ const MaskaProgressMember = ({
     const [cancelledCount, setCancelledCount] = useState(0); // 마스카 취소 건수
     const [isModalOpen, setIsModalOpen] = useState(false); // 취소 모달 오픈 여부
     const [selectedFileIndex, setSelectedFileIndex] = useState(null); // 선택된 파일 순서
-    const [isAllCancel, setIsAllCancel] = useState(false); // 전체 취소 여부
     const timersRef = useRef([]); // 타이머 참조
     const intervalsRef = useRef([]); // 인터벌 참조
-    const isAllCancelTriggeredRef = useRef(false); // 전체 취소 버튼 눌렀는지 추적
 
     // 새로 추가: 페이지 이탈 확인 모달 관련 상태
     const {
@@ -157,15 +155,10 @@ const MaskaProgressMember = ({
 
         // popstate 이벤트 핸들러 (뒤로가기)
         const handlePopState = (e) => {
-            // if (!hasUnsavedChanges) return;
+            if (!hasUnsavedChanges) return;
 
             // 뒤로가기 이벤트를 중지하고 대신 모달 표시
             // history API를 사용하여 현재 상태를 다시 push하여 뒤로가기를 방지
-            // window.history.pushState(null, '', window.location.pathname);
-            // onNavigationModalOpen();
-
-            if (!hasUnsavedChanges || isAllCancelTriggeredRef.current) return;
-
             window.history.pushState(null, '', window.location.pathname);
             onNavigationModalOpen();
         };
@@ -318,52 +311,31 @@ const MaskaProgressMember = ({
                 // setIsAllCancel(true); // 전체 취소로 상태 변경
             }
         }
-        isAllCancelTriggeredRef.current = false;
         setSelectedFileIndex(null);
-    };
-
-    // 전체 취소 버튼 클릭 시
-    const handleCancelAllClick = () => {
-        isAllCancelTriggeredRef.current = true; // 전체 취소 중임을 표시
-        setIsAllCancel(true); // 전체 취소임을 표시
-        setIsModalOpen(true); // 마스카 진행 취소 모달 오픈
     };
 
     // 마스카 취소 모달창에서 '취소' 버튼 클릭 시, 모달 창 닫고, 해당 진행 상태 표시를 제거함
     const handleConfirmCancel = () => {
         setIsModalOpen(false);
+        const index = selectedFileIndex;
 
-        if (isAllCancel) {
-            // 전체 취소일 경우 모든 타이머/인터벌 정리
-            timersRef.current.forEach(clearTimeout);
-            intervalsRef.current.forEach(clearInterval);
-            setCancelledCount(activeFiles.length);
-            setActiveFiles([]);
-            setFileStatuses([]);
-            timersRef.current = [];
-            intervalsRef.current = [];
-            setIsAllCancel(false); // 초기화
-        } else {
-            // 기존 개별 취소 처리
-            const index = selectedFileIndex;
-            if (index !== null) {
-                clearTimeout(timersRef.current[index]);
-                clearInterval(intervalsRef.current[index]);
+        if (index !== null) {
+            clearTimeout(timersRef.current[index]);
+            clearInterval(intervalsRef.current[index]);
 
-                setCancelledCount(1);
-                setActiveFiles((prev) => prev.filter((_, i) => i !== index));
-                setFileStatuses((prev) => prev.filter((_, i) => i !== index));
+            // 한 번만 취소 카운트를 증가시킴
+            setCancelledCount(1);
 
-                timersRef.current = timersRef.current.filter(
-                    (_, i) => i !== index
-                );
-                intervalsRef.current = intervalsRef.current.filter(
-                    (_, i) => i !== index
-                );
-            }
+            setActiveFiles((prev) => prev.filter((_, i) => i !== index));
+            setFileStatuses((prev) => prev.filter((_, i) => i !== index));
 
-            setSelectedFileIndex(null);
+            timersRef.current = timersRef.current.filter((_, i) => i !== index);
+            intervalsRef.current = intervalsRef.current.filter(
+                (_, i) => i !== index
+            );
         }
+
+        setSelectedFileIndex(null);
     };
 
     // 남은 건수 계산: 최대 건수(maxCount)에서 현재 활성 파일 수(currentCount)를 뺌
@@ -426,7 +398,7 @@ const MaskaProgressMember = ({
                                 href='#'
                                 className='btn_round btn_xs'
                                 sx={{ alignSelf: 'flex-end' }}
-                                onClick={handleCancelAllClick} // 여기 수정
+                                onClick={() => handleCancelClick(index)}
                             >
                                 전체 취소
                             </Link>
@@ -687,7 +659,6 @@ const MaskaProgressMember = ({
                 <ModalContent
                     sx={{
                         padding: '30px 30px 20px 30px',
-                        minWidth: '31.25rem',
                     }}
                 >
                     <ModalHeader
@@ -703,9 +674,7 @@ const MaskaProgressMember = ({
                                 width: '100%',
                             }}
                         >
-                            {isAllCancel
-                                ? '진행 중인 전체 마스카를 취소하시겠습니까?'
-                                : '진행 중인 마스카를 취소하시겠습니까?'}
+                            진행 중인 마스카를 취소하시겠습니까?
                         </Text>
                     </ModalHeader>
                     <ModalFooter
@@ -722,7 +691,7 @@ const MaskaProgressMember = ({
                             className='btn_round btn_md'
                             onClick={handleConfirmCancel}
                         >
-                            {isAllCancel ? '전체 취소하기' : '취소하기'}
+                            취소하기
                         </Link>
                     </ModalFooter>
                 </ModalContent>

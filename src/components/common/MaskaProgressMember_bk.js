@@ -40,10 +40,8 @@ const MaskaProgressMember = ({
     const [cancelledCount, setCancelledCount] = useState(0); // 마스카 취소 건수
     const [isModalOpen, setIsModalOpen] = useState(false); // 취소 모달 오픈 여부
     const [selectedFileIndex, setSelectedFileIndex] = useState(null); // 선택된 파일 순서
-    const [isAllCancel, setIsAllCancel] = useState(false); // 전체 취소 여부
     const timersRef = useRef([]); // 타이머 참조
     const intervalsRef = useRef([]); // 인터벌 참조
-    const isAllCancelTriggeredRef = useRef(false); // 전체 취소 버튼 눌렀는지 추적
 
     // 새로 추가: 페이지 이탈 확인 모달 관련 상태
     const {
@@ -157,15 +155,10 @@ const MaskaProgressMember = ({
 
         // popstate 이벤트 핸들러 (뒤로가기)
         const handlePopState = (e) => {
-            // if (!hasUnsavedChanges) return;
+            if (!hasUnsavedChanges) return;
 
             // 뒤로가기 이벤트를 중지하고 대신 모달 표시
             // history API를 사용하여 현재 상태를 다시 push하여 뒤로가기를 방지
-            // window.history.pushState(null, '', window.location.pathname);
-            // onNavigationModalOpen();
-
-            if (!hasUnsavedChanges || isAllCancelTriggeredRef.current) return;
-
             window.history.pushState(null, '', window.location.pathname);
             onNavigationModalOpen();
         };
@@ -285,7 +278,6 @@ const MaskaProgressMember = ({
                         }
                     }, 50);
                 }, 2000);
-                // setIsAllCancel(false); // 전체 취소 아님으로 상태 변경
             } else if (fileStatuses[index].status === '마스카 진행 중') {
                 let progress = fileStatuses[index]?.progress || 0;
                 intervalsRef.current[index] = setInterval(() => {
@@ -315,55 +307,33 @@ const MaskaProgressMember = ({
                         });
                     }
                 }, 50);
-                // setIsAllCancel(true); // 전체 취소로 상태 변경
             }
         }
-        isAllCancelTriggeredRef.current = false;
         setSelectedFileIndex(null);
-    };
-
-    // 전체 취소 버튼 클릭 시
-    const handleCancelAllClick = () => {
-        isAllCancelTriggeredRef.current = true; // 전체 취소 중임을 표시
-        setIsAllCancel(true); // 전체 취소임을 표시
-        setIsModalOpen(true); // 마스카 진행 취소 모달 오픈
     };
 
     // 마스카 취소 모달창에서 '취소' 버튼 클릭 시, 모달 창 닫고, 해당 진행 상태 표시를 제거함
     const handleConfirmCancel = () => {
         setIsModalOpen(false);
+        const index = selectedFileIndex;
 
-        if (isAllCancel) {
-            // 전체 취소일 경우 모든 타이머/인터벌 정리
-            timersRef.current.forEach(clearTimeout);
-            intervalsRef.current.forEach(clearInterval);
-            setCancelledCount(activeFiles.length);
-            setActiveFiles([]);
-            setFileStatuses([]);
-            timersRef.current = [];
-            intervalsRef.current = [];
-            setIsAllCancel(false); // 초기화
-        } else {
-            // 기존 개별 취소 처리
-            const index = selectedFileIndex;
-            if (index !== null) {
-                clearTimeout(timersRef.current[index]);
-                clearInterval(intervalsRef.current[index]);
+        if (index !== null) {
+            clearTimeout(timersRef.current[index]);
+            clearInterval(intervalsRef.current[index]);
 
-                setCancelledCount(1);
-                setActiveFiles((prev) => prev.filter((_, i) => i !== index));
-                setFileStatuses((prev) => prev.filter((_, i) => i !== index));
+            // 한 번만 취소 카운트를 증가시킴
+            setCancelledCount(1);
 
-                timersRef.current = timersRef.current.filter(
-                    (_, i) => i !== index
-                );
-                intervalsRef.current = intervalsRef.current.filter(
-                    (_, i) => i !== index
-                );
-            }
+            setActiveFiles((prev) => prev.filter((_, i) => i !== index));
+            setFileStatuses((prev) => prev.filter((_, i) => i !== index));
 
-            setSelectedFileIndex(null);
+            timersRef.current = timersRef.current.filter((_, i) => i !== index);
+            intervalsRef.current = intervalsRef.current.filter(
+                (_, i) => i !== index
+            );
         }
+
+        setSelectedFileIndex(null);
     };
 
     // 남은 건수 계산: 최대 건수(maxCount)에서 현재 활성 파일 수(currentCount)를 뺌
@@ -396,12 +366,6 @@ const MaskaProgressMember = ({
         }
     };
 
-    // 마스카 아이템 프로그레스바가 하나라도 진행 중 또는 완료 인지 여부...
-    const isAnyProcessing = fileStatuses.some(
-        (file) =>
-            file.status === '마스카 진행 중' || file.status === '마스카 완료'
-    );
-
     return (
         <>
             <div
@@ -420,89 +384,79 @@ const MaskaProgressMember = ({
                     style={{ marginBottom: '1.875rem' }}
                 >
                     <div className='flex_horizontal'>
-                        {/*  마스카 진행 중이면 전체 취소 버튼 표시 */}
-                        {isAnyProcessing ? (
-                            <Link
-                                href='#'
-                                className='btn_round btn_xs'
-                                sx={{ alignSelf: 'flex-end' }}
-                                onClick={handleCancelAllClick} // 여기 수정
+                        {/* <Text className=' maska_status_title'>
+                            마스카 진행상황
+                        </Text> */}
+                        {/* ----- 대기 순서 및 대기 시간 마우스 오버 팝업 ----- */}
+                        <Popover placement='top' trigger='hover'>
+                            <PopoverTrigger>
+                                <Text className='maska_wating_badge flex_horizontal'>
+                                    대기 순서 n 번째
+                                    <Image
+                                        className='icon_waiting'
+                                        src='/img/icon_waiting.svg'
+                                        alt='icon waiting'
+                                        width={24}
+                                        height={24}
+                                    />
+                                </Text>
+                            </PopoverTrigger>
+                            <PopoverContent
+                                borderRadius='0.625rem'
+                                width='19.688rem' // 315px
+                                bgColor='var(--clr-primary)'
+                                color='var(--clr-white)'
                             >
-                                전체 취소
-                            </Link>
-                        ) : (
-                            //* ----- 대기 순서 및 대기 시간 마우스 오버 팝업 ----- */}
-                            <Popover placement='top' trigger='hover'>
-                                <PopoverTrigger>
-                                    <Text className='maska_wating_badge flex_horizontal'>
-                                        대기 순서 n 번째
-                                        <Image
-                                            className='icon_waiting'
-                                            src='/img/icon_waiting.svg'
-                                            alt='icon waiting'
-                                            width={24}
-                                            height={24}
-                                        />
-                                    </Text>
-                                </PopoverTrigger>
-                                <PopoverContent
-                                    borderRadius='0.625rem'
-                                    width='19.688rem' // 315px
-                                    bgColor='var(--clr-primary)'
-                                    color='var(--clr-white)'
+                                <PopoverArrow bgColor='var(--clr-primary)' />
+                                <PopoverBody
+                                    sx={{
+                                        padding: '1.875rem 1.875rem',
+                                        '& p': {
+                                            fontSize: 'var(--fs-14)',
+                                        },
+                                        '& p:nth-of-type(3)': {
+                                            fontSize: 'var(--fs-16)',
+                                            margin: '1rem 0',
+                                        },
+                                        '& p:nth-of-type(3) span': {
+                                            fontWeight: 'var(--fw-700)',
+                                        },
+                                    }}
                                 >
-                                    <PopoverArrow bgColor='var(--clr-primary)' />
-                                    <PopoverBody
-                                        sx={{
-                                            padding: '1.875rem 1.875rem',
-                                            '& p': {
+                                    <p>
+                                        지금 서버 사용량이 많아 대기 중입니다.
+                                    </p>
+                                    <p>새로 고침 시, 대기가 취소됩니다. </p>
+                                    <p>
+                                        대기 순서: <span>n번째</span>
+                                    </p>
+                                    <HStack spacing={4}>
+                                        <Progress
+                                            value={80}
+                                            size='sm'
+                                            flex='1' // 가로로 늘어나게
+                                            sx={{
+                                                borderRadius: '1.875rem',
+                                                backgroundColor: '#D8DDED', // 진행바 전체 배경
+                                                '& > div:first-of-type': {
+                                                    backgroundColor:
+                                                        'var(--clr-sky-blue)', // 실제 진행바 부분 색상
+                                                },
+                                            }}
+                                        />
+                                        <Text
+                                            sx={{
                                                 fontSize: 'var(--fs-14)',
-                                            },
-                                            '& p:nth-of-type(3)': {
-                                                fontSize: 'var(--fs-16)',
-                                                margin: '1rem 0',
-                                            },
-                                            '& p:nth-of-type(3) span': {
-                                                fontWeight: 'var(--fw-700)',
-                                            },
-                                        }}
-                                    >
-                                        <p>
-                                            지금 서버 사용량이 많아 대기
-                                            중입니다.
-                                        </p>
-                                        <p>새로 고침 시, 대기가 취소됩니다. </p>
-                                        <p>
-                                            대기 순서: <span>n번째</span>
-                                        </p>
-                                        <HStack spacing={4}>
-                                            <Progress
-                                                value={80}
-                                                size='sm'
-                                                flex='1' // 가로로 늘어나게
-                                                sx={{
-                                                    borderRadius: '1.875rem',
-                                                    backgroundColor: '#D8DDED', // 진행바 전체 배경
-                                                    '& > div:first-of-type': {
-                                                        backgroundColor:
-                                                            'var(--clr-sky-blue)', // 실제 진행바 부분 색상
-                                                    },
-                                                }}
-                                            />
-                                            <Text
-                                                sx={{
-                                                    fontSize: 'var(--fs-14)',
-                                                    fontWeight: 'var(--fw-600)',
-                                                    color: 'var(--clr-sky-blue)',
-                                                }}
-                                            >
-                                                n초 남음
-                                            </Text>
-                                        </HStack>
-                                    </PopoverBody>
-                                </PopoverContent>
-                            </Popover>
-                        )}
+                                                fontWeight: 'var(--fw-600)',
+                                                color: 'var(--clr-sky-blue)',
+                                            }}
+                                        >
+                                            n초 남음
+                                        </Text>
+                                    </HStack>
+                                </PopoverBody>
+                            </PopoverContent>
+                        </Popover>
                     </div>
                     <Text className='badge_chance'>
                         {`${remainingCount}/${maxCount}건 가능`}
@@ -657,6 +611,10 @@ const MaskaProgressMember = ({
                             <Button
                                 variant='ghost'
                                 onClick={() => handleCancelClick(index)}
+                                // isDisabled={
+                                //     fileStatuses[index]?.status ===
+                                //     '마스카 완료'
+                                // }
                             >
                                 {fileStatuses[index]?.status ===
                                 '마스카 완료' ? (
@@ -680,14 +638,22 @@ const MaskaProgressMember = ({
                         </HStack>
                     </Box>
                 ))}
+
+                <Link
+                    href='/main-member'
+                    className='btn_round btn_xs'
+                    sx={{ alignSelf: 'flex-end' }}
+                >
+                    전체 취소
+                </Link>
             </div>
+
             {/* ------ 마스카 진행 취소 모달 ------- */}
             <Modal isOpen={isModalOpen} onClose={handleContinue} isCentered>
                 <ModalOverlay />
                 <ModalContent
                     sx={{
-                        padding: '30px 30px 20px 30px',
-                        minWidth: '31.25rem',
+                        padding: '30px 50px 20px 50px',
                     }}
                 >
                     <ModalHeader
@@ -703,9 +669,7 @@ const MaskaProgressMember = ({
                                 width: '100%',
                             }}
                         >
-                            {isAllCancel
-                                ? '진행 중인 전체 마스카를 취소하시겠습니까?'
-                                : '진행 중인 마스카를 취소하시겠습니까?'}
+                            작업중인 마스카를 취소하시겠습니까?
                         </Text>
                     </ModalHeader>
                     <ModalFooter
@@ -722,11 +686,12 @@ const MaskaProgressMember = ({
                             className='btn_round btn_md'
                             onClick={handleConfirmCancel}
                         >
-                            {isAllCancel ? '전체 취소하기' : '취소하기'}
+                            취소하기
                         </Link>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
+
             {/* ------ 새로 추가: 페이지 이탈 확인 모달 ------- */}
             <Modal
                 isOpen={isNavigationModalOpen}
@@ -753,7 +718,7 @@ const MaskaProgressMember = ({
                             }}
                         >
                             마스카 작업 파일이 사라집니다. <br />
-                            <span>확인하지 않고 화면을 나가시겠습니까?</span>
+                            확인하지 않고 화면을 나가시겠습니까?
                         </Text>
                     </ModalHeader>
                     <ModalFooter
@@ -765,7 +730,7 @@ const MaskaProgressMember = ({
                             className='btn_round btn_outline btn_md'
                             onClick={handleNavigationContinue}
                         >
-                            아니오
+                            나가기
                         </Link>
                         <Link
                             // onClick={handleNavigationCancel}

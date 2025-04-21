@@ -15,6 +15,8 @@ import {
     Box,
     Input,
     Text,
+    HStack,
+    Progress,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 
@@ -29,6 +31,7 @@ const ModalComponent = ({
     modalOption,
     isPwChangeModal = false, // 비밀번호 모달 여부, 디폴트 false
     isUnSubscribeModal = false, // 탈퇴하기 모달 여부, 디폴트 false
+    isReadyDownloadModal = false, // 다운로드 준비 중 모달 여부, 디폴트 false
 }) => {
     // 인증 데이터에서 인증 관련 정보 추출
     const {
@@ -360,6 +363,105 @@ const ModalComponent = ({
                         onClick={(e) => {
                             e.preventDefault();
                             handleSubmit(e);
+                        }}
+                    >
+                        {modalOption.btnLabelPositive}
+                    </Link>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
+    ) : isReadyDownloadModal && isReadyDownloadModal ? (
+        // 다운로드 준비 중... 모달 일 경우  .... 모달 구조
+        <Modal isOpen={isModalOpen} onClose={handleModalClose} isCentered>
+            <ModalOverlay />
+            <ModalContent
+                sx={{
+                    padding: '30px 20px 20px 20px',
+                    minWidth: '34.375rem', // 550px
+                }}
+            >
+                <ModalHeader
+                    display='flex'
+                    justifyContent='space-between'
+                    alignItems='center'
+                >
+                    <Text
+                        sx={{
+                            fontSize: 'var(--fs-20)',
+                            fontWeight: 'var(--fw-400)',
+                            textAlign: 'center',
+                            width: '100%',
+                        }}
+                    >
+                        {modalOption.title}
+                    </Text>
+                </ModalHeader>
+                <ModalBody>
+                    <Text
+                        sx={{
+                            fontSize: 'var(--fs-18)',
+                            fontWeight: 'var(--fw-400)',
+                            textAlign: 'center',
+                            width: '100%',
+                        }}
+                    >
+                        {modalOption.description}
+                    </Text>
+                    <HStack spacing={4} mt={4}>
+                        <Progress
+                            value={80}
+                            size='sm'
+                            flex='1' // 가로로 늘어나게
+                            sx={{
+                                borderRadius: '1.875rem',
+                                backgroundColor: '#D8DDED', // 진행바 전체 배경
+                                '& > div:first-of-type': {
+                                    backgroundColor: 'var(--clr-sky-blue)', // 실제 진행바 부분 색상
+                                },
+                            }}
+                        />
+                        <Text
+                            sx={{
+                                fontSize: 'var(--fs-18)',
+                                fontWeight: 'var(--fw-600)',
+                                color: 'var(--clr-sky-blue)',
+                            }}
+                        >
+                            n초 남음
+                        </Text>
+                    </HStack>
+                </ModalBody>
+                <ModalFooter
+                    className='flex_horizontal'
+                    style={{ gap: '1rem', justifyContent: 'center' }}
+                >
+                    {handleModalNegative && (
+                        <Link
+                            href='#'
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleModalNegative();
+                            }}
+                            className={
+                                isUnSubscribeModal
+                                    ? 'btn_round btn_outline btn_md btn_black'
+                                    : 'btn_round btn_outline btn_md'
+                            }
+                        >
+                            {modalOption.btnLabelNagative}
+                        </Link>
+                    )}
+                    <Link
+                        href='#'
+                        className={
+                            isUnSubscribeModal
+                                ? 'btn_round btn_md btn_black'
+                                : 'btn_round btn_md'
+                        }
+                        // 나가기 버튼 클릭
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleConfirm();
                         }}
                     >
                         {modalOption.btnLabelPositive}

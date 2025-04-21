@@ -4,6 +4,7 @@
     --foreground: #171717; /* 전경 */
     --clr-primary: #263994; /* 메인 컬러 */
     --clr-primary-dark: #061146; /* footer 배경색 */
+    --clr-dark-blue: #1a2768; /* 전체 파일 압축 다운로드하기 버튼 배경색 */
     --clr-sky-blue: #2da6fa; /* 서브 컬러 */
     --clr-light-blue: #fbfcff; /* 섹션 배경 */
     --clr-soft-blue: #80c1ff; /* 문의하기 버튼색 */

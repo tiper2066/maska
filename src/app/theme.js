@@ -73,5 +73,13 @@ export const theme = extendTheme({
                 },
             },
         },
+        Tooltip: {
+            baseStyle: {
+                borderRadius: '0.25rem !important',
+                '& .tooltip-label': {
+                    borderRadius: '0.25rem !important',
+                },
+            },
+        },
     },
 });
