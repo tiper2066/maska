@@ -85,7 +85,7 @@ const EditMemberImage = () => {
                                 gap: '1rem',
                             }}
                         >
-                            <p className='item_name'>마스카 영역</p>
+                            <p className='item_name'>마스카 영역 편집</p>
                             <p className='item_value'>19/20건 가능</p>
                         </div>
                         {/* 썸네일 이미지 */}
